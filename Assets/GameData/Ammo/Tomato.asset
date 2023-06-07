@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f66092723e12c74baa5f126b033b5cf, type: 3}
   m_Name: Tomato
   m_EditorClassIdentifier: 
+  fruitType: 6
   weaponSlot: 0
   zoomType: 0
   name: Tomato
@@ -28,6 +29,7 @@ MonoBehaviour:
   runSpeed: 0
   reloadSpeed: 3
   multiplierRecoilOnAim: 0
+  multiplierForAmmo: 1
   recoildPattern:
   - {x: 0, y: 0}
   artwork: {fileID: 0}

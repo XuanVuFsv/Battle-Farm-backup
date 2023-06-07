@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f66092723e12c74baa5f126b033b5cf, type: 3}
   m_Name: Punch
   m_EditorClassIdentifier: 
+  fruitType: 4
   weaponSlot: 2
   zoomType: 0
   name: Punch
@@ -28,6 +29,7 @@ MonoBehaviour:
   runSpeed: 1
   reloadSpeed: 0
   multiplierRecoilOnAim: 0
+  multiplierForAmmo: 1
   recoildPattern:
   - {x: 0, y: 0}
   artwork: {fileID: 0}

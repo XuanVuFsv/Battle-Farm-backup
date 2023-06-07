@@ -53,7 +53,9 @@ public class RaycastWeapon : MonoBehaviour
     public void StartFiring()
     {
         if (muzzleFlash) muzzleFlash.Emit(1);
-        if (ammoStatsController.ammoStats.name == "Star") cameraShake.GenerateRecoil(true);
+
+        //Convert == "Star" to Enum type
+        if (ammoStatsController.ammoStats.fruitType == AmmoStats.FruitType.Star) cameraShake.GenerateRecoil(true);
         else
         {
             cameraShake.GenerateRecoil();
@@ -146,7 +148,7 @@ public class RaycastWeapon : MonoBehaviour
     {
         Vector3 direction = fpsCameraTransform.forward;
 
-        if (ammoStatsController.ammoStats.name == "Star")
+        if (ammoStatsController.ammoStats.fruitType == AmmoStats.FruitType.Star)
         {
             //Debug.Log("Shoot");
             Vector3 localDirection = Vector3.forward + cameraShake.GetCurrentPatternVector();
@@ -172,7 +174,7 @@ public class RaycastWeapon : MonoBehaviour
         Gizmos.color = Color.green;
         Vector3 direction = fpsCameraTransform.forward;
 
-        if (ammoStatsController.ammoStats.name == "Star")
+        if (ammoStatsController.ammoStats.fruitType == AmmoStats.FruitType.Star)
         {
             Vector3 localDirection = Vector3.forward + cameraShake.GetCurrentPatternVector();
             direction = fpsCameraTransform.TransformDirection(localDirection).normalized;

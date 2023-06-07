@@ -21,6 +21,7 @@ public class AmmoStatsController : MonoBehaviour
     public float fireRate;
     public float reloadSpeed;
     public float multiplierRecoilOnAim;
+    public float multiplierForAmmo;
 
     public bool hasAssignAmmoData = false;
 
@@ -71,6 +72,7 @@ public class AmmoStatsController : MonoBehaviour
         force = ammoStats.force;
         amplitudeGainImpulse = ammoStats.amplitudeGainImpulse;
         multiplierRecoilOnAim = ammoStats.multiplierRecoilOnAim;
+        multiplierForAmmo = ammoStats.multiplierForAmmo;
 
         fireRate = ammoStats.fireRate;
         reloadSpeed = ammoStats.reloadSpeed;

@@ -10,6 +10,7 @@ public class GunCameraController : GameObserver
     [SerializeField] Animator crosshairAnimator;
     [SerializeField] Animator animator;
     [SerializeField] bool hasScope, isHoldWeapon;
+    [SerializeField] int weaponIndex;
 
     private void Awake()
     {
@@ -22,11 +23,13 @@ public class GunCameraController : GameObserver
         AddGameEventToObserver(aimEvent);
     }
 
-    public void SetHoldWeaponAnimation(bool isHoldWeapon)
+    public void SetHoldWeaponAnimation(bool _isHoldWeapon, int _weaponIndex)
     {
         //Debug.Log("Notified " + gEvent.GameEventName + " event to GunCameraController " + value);
-        this.isHoldWeapon = isHoldWeapon;
+        isHoldWeapon = _isHoldWeapon;
+        weaponIndex = _weaponIndex;
         animator?.SetBool("isHoldWeapon", isHoldWeapon);
+        animator?.SetInteger("weaponIndex", weaponIndex);
 
         //if (gEvent.GameEventName == "HoldWeapon")
         //{
@@ -40,9 +43,14 @@ public class GunCameraController : GameObserver
         //}
     }
 
-    public void SetHasScope(bool hasScope)
+    public void SetMultiplier(float _multiplier)
     {
-        this.hasScope = hasScope;
+        animator?.SetFloat("multiplier", _multiplier);
+    }
+
+    public void SetHasScope(bool _hasScope)
+    {
+        hasScope = _hasScope;
         crosshairAnimator.SetBool("hasScope", hasScope);
         vcamAnimator.SetBool("hasScope", hasScope);
         animator.SetBool("hasScope", hasScope);
