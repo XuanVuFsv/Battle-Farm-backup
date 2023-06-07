@@ -28,6 +28,7 @@ MonoBehaviour:
   runSpeed: 1
   reloadSpeed: 2.5
   multiplierRecoilOnAim: 0.5
+  multiplierForAmmo: 1
   recoildPattern:
   - {x: 0, y: 0.25}
   - {x: 0, y: 0.5}

@@ -9,6 +9,7 @@ public class WeaponStatsController: MonoBehaviour
     public WeaponStats weaponStats;
     public ActiveWeapon.WeaponSlot weaponSlot;
     public AmmoStatsController currentAmmoStatsController;
+    public GunCameraController gunCamera;
     [SerializeField]
     AmmoPickup ammunitionChestPicked, defaultAmmoOnStart;
     [SerializeField]
@@ -101,6 +102,13 @@ public class WeaponStatsController: MonoBehaviour
             //Debug.Log("Add to null " + transform.parent.name);
             currentAmmoStatsController.ammoStats = ammoPickup.ammoStats;
             currentAmmoStatsController.AssignAmmotData();
+
+            if (ofActiveWeapon)
+            {
+                Debug.Log("Set" + currentAmmoStatsController.multiplierForAmmo);
+                gunCamera.SetMultiplier(currentAmmoStatsController.multiplierForAmmo);
+            }
+
             ammoPickup.AttachAmmoToObject(transform, false);
 
             pickAmmoEvent.Notify(currentAmmoStatsController.amplitudeGainImpulse);
@@ -109,7 +117,7 @@ public class WeaponStatsController: MonoBehaviour
             SetNewAmmoCount(ammoPickup);
             ammunitionChestPicked = ammoPickup;
         }
-        else if (currentAmmoStatsController.ammoStats.name == ammoPickup.ammoStats.name)
+        else if (currentAmmoStatsController.ammoStats.fruitType == ammoPickup.ammoStats.fruitType)
         {
             //Debug.Log("Add same ammo");
 

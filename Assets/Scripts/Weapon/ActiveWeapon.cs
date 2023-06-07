@@ -391,8 +391,8 @@ public class ActiveWeapon : MonoBehaviour
         shootController.magazineObject = equippedWeapon[activeWeaponIndex].GetComponent<WeaponStatsController>().magazineObject;
         shootController.raycastWeapon = equippedWeapon[activeWeaponIndex].GetComponent<RaycastWeapon>();
 
-        if (activeWeaponIndex == 2 || activeWeaponIndex == 3) gunCameraController.SetHoldWeaponAnimation(false);
-        else gunCameraController.SetHoldWeaponAnimation(true);
+        if (activeWeaponIndex == 2 || activeWeaponIndex == 3) gunCameraController.SetHoldWeaponAnimation(false, (int)weaponStats.weaponSlot);
+        else gunCameraController.SetHoldWeaponAnimation(true, (int)weaponStats.weaponSlot);
     }
 
     void SetWeaponAnimation()

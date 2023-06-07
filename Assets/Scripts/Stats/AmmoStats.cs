@@ -5,6 +5,19 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Ammo", menuName = "Ammo")]
 public class AmmoStats : ScriptableObject
 {
+    public enum FruitType
+    {
+        Berry = 0,
+        Chilli = 1,
+        Onion = 2,
+        Punch = 4,
+        Star = 5,
+        Tomato = 6,
+        Waternelon = 7
+    }
+
+    public FruitType fruitType;
+
     public ActiveWeapon.WeaponSlot weaponSlot;
     public enum ZoomType
     {
@@ -25,6 +38,7 @@ public class AmmoStats : ScriptableObject
     public float runSpeed;
     public float reloadSpeed;
     public float multiplierRecoilOnAim;
+    public float multiplierForAmmo;
     public List<Vector2> recoildPattern;
     public Sprite artwork;
     public TrailRenderer bulletTracer;

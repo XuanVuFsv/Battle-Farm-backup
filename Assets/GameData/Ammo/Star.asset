@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f66092723e12c74baa5f126b033b5cf, type: 3}
   m_Name: Star
   m_EditorClassIdentifier: 
+  fruitType: 5
   weaponSlot: 0
   zoomType: 2
   name: Star
@@ -28,6 +29,7 @@ MonoBehaviour:
   runSpeed: 0.75
   reloadSpeed: 2.5
   multiplierRecoilOnAim: 0
+  multiplierForAmmo: 0.5
   recoildPattern:
   - {x: 0, y: 0}
   - {x: 6, y: 6}
