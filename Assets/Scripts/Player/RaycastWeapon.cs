@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RaycastWeapon : MonoBehaviour
+public class RaycastWeapon : MonoBehaviour, IShootable
 {
+    ShootingHandler shootingHandler;
     public AmmoStatsController ammoStatsController;
     CameraShake cameraShake;
     GunCameraShake gunCameraShake;
@@ -22,13 +23,12 @@ public class RaycastWeapon : MonoBehaviour
 
     public AnimationClip weaponAnimation;
 
-    //public ShootingMechanic currentShootingMechanic;
-
     WeaponStats weaponStats;
     RaycastHit hit;
     int layerMask;
 
     [SerializeField] string currentHitObject = "";
+    [SerializeField] bool useDifferentClassForHandleShooting = true;
 
     //[Header("Weapon Sway (not used)")]
     //Enables weapon sway
@@ -39,6 +39,7 @@ public class RaycastWeapon : MonoBehaviour
 
     private void Start()
     {
+        shootingHandler = new ShootingHandler();
         cameraShake = GetComponent<CameraShake>();
         //gunCameraShake = GetComponent<GunCameraShake>();
         ammoStatsController = GetComponent<AmmoStatsController>();
@@ -54,13 +55,12 @@ public class RaycastWeapon : MonoBehaviour
     {
         if (muzzleFlash) muzzleFlash.Emit(1);
 
-        //Convert == "Star" to Enum type
-        if (ammoStatsController.ammoStats.fruitType == AmmoStats.FruitType.Star) cameraShake.GenerateRecoil(true);
-        else
-        {
-            cameraShake.GenerateRecoil();
-            //gunCameraShake.GenerateRecoil();
-        }
+        cameraShake.GenerateRecoil(ammoStatsController.ammoStats.zoomType);
+        //if (ammoStatsController.ammoStats.zoomType == AmmoStats.ZoomType.HasScope) cameraShake.GenerateRecoil(true);
+        //else
+        //{
+        //    cameraShake.GenerateRecoil();
+        //}
 
         #region Spawn bullet object and tracer
         //Spawn casing prefab at spawnpoint
@@ -75,7 +75,11 @@ public class RaycastWeapon : MonoBehaviour
         //tracer.AddPosition(bulletSpawnPoint.position);
         #endregion
 
-        ShootingHandle();
+        if (useDifferentClassForHandleShooting)
+        {
+            shootingHandler.ShootingHandle(new ShootingHandler.ShootingInputData(ammoStatsController.ammoStats.shootingHandleType, ammoStatsController, raycastOrigin, fpsCameraTransform, hitEvent, cameraShake, bulletSpawnPoint, layerMask));
+        }
+        else ShootingHandle();
     }
 
     public void StopFiring()
@@ -84,7 +88,7 @@ public class RaycastWeapon : MonoBehaviour
     }
 
     void ShootingHandle()
-    {
+    { 
         if(ammoStatsController.ammoStats.shootingHandleType == AmmoStats.ShootingHandleType.Raycast)
         {
             RaycastHandle();
