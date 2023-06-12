@@ -121,13 +121,14 @@ public class AmmoPickup : MonoBehaviour
 
     public void DetachAmmoToObject(Transform parent, bool isVisible)
     {
-        hasParent = false;
+        //hasParent = false;
 
-        transform.parent = parent;
-        transform.eulerAngles = Vector3.zero;
-        gameObject.SetActive(isVisible);
+        //transform.parent = parent;
+        //transform.eulerAngles = Vector3.zero;
+        //gameObject.SetActive(isVisible);
 
         PoolingManager.Instance.RemoveGameEvent("Pool" + ammoStats.name + "Setup");
+        Destroy(gameObject);
 
         //if (ammoStats.name == "Berry")
         //{

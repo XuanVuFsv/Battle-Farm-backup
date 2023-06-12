@@ -94,11 +94,11 @@ public class ActiveWeapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            //SceneManager.LoadScene("LoadingScene");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
+        //if (Input.GetKeyDown(KeyCode.X))
+        //{
+        //    //SceneManager.LoadScene("LoadingScene");
+        //    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        //}
 
         //if (GetNearestWeapon()) nearestWeapon = GetNearestWeapon().gameObject.transform.parent.name;
         //if (GetNearestAmmo()) nearestAmmo = GetNearestAmmo().gameObject.transform.name;
@@ -199,7 +199,7 @@ public class ActiveWeapon : MonoBehaviour
 
     void PickAmmo()
     {
-        if (triggerAmmoList.Count == 0 || activeWeaponIndex == 1) return; // Only primary weapon can change ammo type
+        if (triggerAmmoList.Count == 0 || activeWeaponIndex == 4) return; // Only primary weapon can change ammo type
 
         AmmoPickup pickedAmmo = GetNearestAmmo();
 
@@ -238,6 +238,8 @@ public class ActiveWeapon : MonoBehaviour
         {
             Debug.Log("Switch");
             shootController.AttachMagazine();
+            shootController.StopAllCoroutines();
+            shootController.StopCoroutine("Reload");
         }
         else shootController.ResetMagazine();
 
@@ -250,7 +252,6 @@ public class ActiveWeapon : MonoBehaviour
 
         rigController.SetInteger("weaponIndex", activeWeaponIndex);
         gunCameraController.SetHasScope(activateWeapon.GetComponent<AmmoStatsController>().ammoStats.zoomType == AmmoStats.ZoomType.HasScope);
-        shootController.StopAllCoroutines();
     }
 
     public void EquipWeapon(WeaponAction action, WeaponPickup newWeapon, bool runAnimation, bool isExistWeaponSlot = false)

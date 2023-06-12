@@ -100,11 +100,11 @@ public class ShootController : MonoBehaviour
             || (inputController.isSingleFire && activeWeapon.activeWeaponIndex != 0))
             && !currentWeaponStatsController.IsOutOfAmmo() && !isReloading)
         {
-            //Debug.Log("Shoot");
+            Debug.Log("Shoot");
             //Shoot automatic
             if (Time.time - lastFired > 1 / currentWeaponStatsController.currentAmmoStatsController.fireRate)
             {
-                //Debug.Log("Shoot");
+                Debug.Log("Shoot");
                 lastFired = Time.time;
 
                 //Remove 1 bullet from ammo
@@ -144,7 +144,7 @@ public class ShootController : MonoBehaviour
     //Reload handling
     IEnumerator Reload()
     {
-        //Debug.Log("Reload");
+        Debug.Log("Reload");
         rigController.SetTrigger("ReloadAK");
         rigController.SetBool("reloading", true);
         rigController.SetBool("inAim", false);
@@ -168,7 +168,7 @@ public class ShootController : MonoBehaviour
         if (ended)
         {
             currentWeaponStatsController.UpdateAmmoUI();
-            //Debug.Log("Reload");
+            Debug.Log("Reload");
             rigController.SetTrigger("ReloadAK");
         }
         rigController.SetBool("reloading", false);
@@ -203,17 +203,22 @@ public class ShootController : MonoBehaviour
         {
             case "detach_magazine":
                 DeTachMagazine();
+                Debug.Log("Detach");
                 break;
             case "drop_magazine":
+                Debug.Log("Drop");
                 DropMagazine();
                 break;
             case "refill_magazine":
+                Debug.Log("Refill");
                 RefillMagazine();
                 break;
             case "attach_magazine":
+                Debug.Log("Attach");
                 AttachMagazine();
                 break;
             case "take_new_magazine":
+                Debug.Log("Take new");
                 TakeNewMagazine();
                 break;
         }
@@ -248,8 +253,8 @@ public class ShootController : MonoBehaviour
 
     public void AttachMagazine()
     {
-        //Debug.Log("AttachMagazine");
-        if(magazineObject != null) magazineObject.SetActive(true);
+        Debug.Log("AttachMagazine");
+        if (magazineObject != null) magazineObject.SetActive(true);
         isReloading = false;
         Destroy(magazineHand);
     }
