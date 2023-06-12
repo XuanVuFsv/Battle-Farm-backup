@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RaycastWeapon : MonoBehaviour, IShootable
 {
-    ShootingHandler shootingHandler;
+    public ShootingHandler shootingHandler;
     public AmmoStatsController ammoStatsController;
     CameraShake cameraShake;
     GunCameraShake gunCameraShake;
@@ -30,25 +30,30 @@ public class RaycastWeapon : MonoBehaviour, IShootable
     [SerializeField] string currentHitObject = "";
     [SerializeField] bool useDifferentClassForHandleShooting = true;
 
+    #region
     //[Header("Weapon Sway (not used)")]
     //Enables weapon sway
     //bool weaponSway;
     //float swayAmount = 0.02f;
     //float maxSwayAmount = 0.06f;
     //float swaySmoothValue = 4.0f;
+    #endregion
 
     private void Start()
     {
-        shootingHandler = new ShootingHandler();
+        shootingHandler = GetComponent<ShootingHandler>();
         cameraShake = GetComponent<CameraShake>();
-        //gunCameraShake = GetComponent<GunCameraShake>();
         ammoStatsController = GetComponent<AmmoStatsController>();
         weaponStats = GetComponent<WeaponStatsController>().weaponStats;
 
         fpsCameraTransform = Camera.main.transform;
         layerMask = ~(1 << LayerMask.NameToLayer("Ignore Raycast") | 1 << LayerMask.NameToLayer("Ignore Player") | 1 << LayerMask.NameToLayer("Only Player"));
+
+        #region
+        //gunCameraShake = GetComponent<GunCameraShake>();
         //hitEffectPrefab = Instantiate(ammoStatsController.hitEffectPrefab, transform);
         //hitEffectPrefab.gameObject.layer = LayerMask.NameToLayer("Default");
+        #endregion
     }
 
     public void StartFiring()

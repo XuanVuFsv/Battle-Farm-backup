@@ -725,10 +725,10 @@ AnimatorStateMachine:
     m_Position: {x: 550, y: -40, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 279829396186079122}
-    m_Position: {x: 100, y: -160, z: 0}
+    m_Position: {x: 50, y: -160, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4031466444454748965}
-    m_Position: {x: 50, y: 200, z: 0}
+    m_Position: {x: 50, y: 210, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2029792998864619781}
     m_Position: {x: 190, y: 20, z: 0}
@@ -753,9 +753,6 @@ AnimatorStateMachine:
   - serializedVersion: 1
     m_State: {fileID: 2403028867811925230}
     m_Position: {x: -160, y: 20, z: 0}
-  - serializedVersion: 1
-    m_State: {fileID: 5052742355381769137}
-    m_Position: {x: -125, y: 85, z: 0}
   m_ChildStateMachines:
   - serializedVersion: 1
     m_StateMachine: {fileID: 5609592613188789099}
@@ -978,32 +975,6 @@ AnimatorState:
   m_Motion: {fileID: 7400000, guid: 80294a0fb0c9f10438f06413cf5ceac2, type: 2}
   m_Tag: 
   m_SpeedParameter: multiplier
-  m_MirrorParameter: 
-  m_CycleOffsetParameter: 
-  m_TimeParameter: 
---- !u!1102 &5052742355381769137
-AnimatorState:
-  serializedVersion: 6
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: LoopMovingAK
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Transitions: []
-  m_StateMachineBehaviours: []
-  m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
-  m_WriteDefaultValues: 1
-  m_Mirror: 0
-  m_SpeedParameterActive: 0
-  m_MirrorParameterActive: 0
-  m_CycleOffsetParameterActive: 0
-  m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: a971c499b62bece4ebfafd43563c39bf, type: 2}
-  m_Tag: 
-  m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
@@ -1290,7 +1261,7 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.6
   m_TransitionOffset: 0
   m_ExitTime: 1
   m_HasExitTime: 0
