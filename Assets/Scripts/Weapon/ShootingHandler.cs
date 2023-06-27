@@ -2,58 +2,61 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShootingHandler : MonoBehaviour
+public class ShootingHandler : MonoBehaviour, IPrimaryWeaponStragety
 {
-    public class ShootingInputData
-    {
-        public ShootingInputData(AmmoStats.ShootingHandleType _shootingHandleType, AmmoStatsController _ammoStatsController, Transform _raycastOrigin, Transform _fpsCameraTransform, GameEvent _hitEvent, CameraShake _cameraShake, Transform _bulletSpawnPoint, int _layerMask)
-        {
-            shootingHandleType = _shootingHandleType;
-            ammoStatsController = _ammoStatsController;
-            raycastOrigin = _raycastOrigin;
-            fpsCameraTransform = _fpsCameraTransform;
-            hitEvent = _hitEvent;
-            cameraShake = _cameraShake;
-            bulletSpawnPoint = _bulletSpawnPoint;
-            layerMask = _layerMask;
-        }
-
-        public AmmoStats.ShootingHandleType shootingHandleType;
-        public AmmoStatsController ammoStatsController;
-        public Transform raycastOrigin;
-        public Transform fpsCameraTransform;
-        public GameEvent hitEvent;
-        public CameraShake cameraShake;
-        public Transform bulletSpawnPoint;
-        public int layerMask;
-    }
+    public ShootingInputData shootingInputData;
+    public RaycastWeapon raycastWeapon;
     RaycastHit hit;
-    //[SerializeField] string currentHitObject = "";
 
-    public void ShootingHandle(ShootingInputData inputData)
+    private void Start()
     {
-        if (inputData.shootingHandleType == AmmoStats.ShootingHandleType.Raycast)
+        raycastWeapon = GetComponent<RaycastWeapon>();
+    }
+
+    public void SetInputData(object _inputData)
+    {
+        shootingInputData = _inputData as ShootingInputData;
+    }
+
+    public ShootingInputData GetShootingInputData()
+    {
+        return shootingInputData;
+    }
+
+    public void HandleLeftMouseClick()
+    {
+        ShootingHandle();
+    }
+
+    public void HandleRightMouseClick()
+    {
+
+    }
+
+    public void ShootingHandle()
+    {
+        if (shootingInputData.shootingHandleType == AmmoStats.ShootingHandleType.Raycast)
         {
-            RaycastHandle(inputData);
+            RaycastHandle();
         }
-        else if (inputData.shootingHandleType == AmmoStats.ShootingHandleType.InstantiateBullet)
+        else if (shootingInputData.shootingHandleType == AmmoStats.ShootingHandleType.InstantiateBullet)
         {
-            InstantiateBulletHandle(inputData);
+            InstantiateBulletHandle();
         }
     }
 
-    void RaycastHandle(ShootingInputData inputData)
+    void RaycastHandle()
     {
-        if (inputData.ammoStatsController.bulletCount == 1)
+        if (shootingInputData.ammoStatsController.bulletCount == 1)
         {
-            if (Physics.Raycast(inputData.raycastOrigin.position, inputData.fpsCameraTransform.forward, out hit, inputData.ammoStatsController.range, inputData.layerMask))
+            if (Physics.Raycast(shootingInputData.raycastOrigin.position, shootingInputData.fpsCameraTransform.forward, out hit, shootingInputData.ammoStatsController.range, shootingInputData.layerMask))
             {
                 //hitEffectPrefab.transform.position = hit.point;
                 //hitEffectPrefab.transform.forward = hit.normal;
                 //hitEffectPrefab.Emit(5);
 
-                PoolingManager.Instance.Get("Pool" + inputData.ammoStatsController.ammoStats.name + "Setup");
-                inputData.hitEvent.Notify(hit);
+                PoolingManager.Instance.Get("Pool" + shootingInputData.ammoStatsController.ammoStats.name + "Setup");
+                shootingInputData.hitEvent.Notify(hit);
                 //currentHitObject = hit.collider.name;
 
 
@@ -76,33 +79,33 @@ public class ShootingHandler : MonoBehaviour
             List<RaycastHit> raycastHits = new List<RaycastHit>();
 
             //int i = 0;
-            foreach (Vector3 pattern in inputData.ammoStatsController.ammoStats.bulletDirectionPattern)
+            foreach (Vector3 pattern in shootingInputData.ammoStatsController.ammoStats.bulletDirectionPattern)
             {
                 Vector3 localDirection = Vector3.forward + pattern;
-                Vector3 direction = inputData.fpsCameraTransform.TransformDirection(localDirection).normalized;
+                Vector3 direction = shootingInputData.fpsCameraTransform.TransformDirection(localDirection).normalized;
 
-                if (Physics.Raycast(inputData.raycastOrigin.position, direction, out hit, inputData.ammoStatsController.range, inputData.layerMask))
+                if (Physics.Raycast(shootingInputData.raycastOrigin.position, direction, out hit, shootingInputData.ammoStatsController.range, shootingInputData.layerMask))
                 {
                     raycastHits.Add(hit);
-                    PoolingManager.Instance.Get("Pool" + inputData.ammoStatsController.ammoStats.name + "Setup");
-                    inputData.hitEvent.Notify(hit);
+                    PoolingManager.Instance.Get("Pool" + shootingInputData.ammoStatsController.ammoStats.name + "Setup");
+                    shootingInputData.hitEvent.Notify(hit);
                 }
             }
         }
     }
 
-    void InstantiateBulletHandle(ShootingInputData inputData)
+    void InstantiateBulletHandle()
     {
-        Vector3 direction = inputData.fpsCameraTransform.forward;
+        Vector3 direction = shootingInputData.fpsCameraTransform.forward;
 
-        if (inputData.ammoStatsController.ammoStats.fruitType == AmmoStats.FruitType.Star)
+        if (shootingInputData.ammoStatsController.ammoStats.fruitType == AmmoStats.FruitType.Star)
         {
             //Debug.Log("Shoot");
-            Vector3 localDirection = Vector3.forward + inputData.cameraShake.GetCurrentPatternVector();
-            direction = inputData.fpsCameraTransform.TransformDirection(localDirection).normalized;
+            Vector3 localDirection = Vector3.forward + shootingInputData.cameraShake.GetCurrentPatternVector();
+            direction = shootingInputData.fpsCameraTransform.TransformDirection(localDirection).normalized;
         }
 
-        GameObject newBullet = Instantiate(inputData.ammoStatsController.ammoStats.bulletObject, inputData.bulletSpawnPoint.position, Quaternion.identity);
-        newBullet.GetComponent<BulletBehaviour>().TriggerBullet(inputData.ammoStatsController.ammoStats.name, inputData.ammoStatsController.force, direction);
+        GameObject newBullet = Instantiate(shootingInputData.ammoStatsController.ammoStats.bulletObject, shootingInputData.bulletSpawnPoint.position, Quaternion.identity);
+        newBullet.GetComponent<BulletBehaviour>().TriggerBullet(shootingInputData.ammoStatsController.ammoStats.name, shootingInputData.ammoStatsController.force, direction);
     }
 }
