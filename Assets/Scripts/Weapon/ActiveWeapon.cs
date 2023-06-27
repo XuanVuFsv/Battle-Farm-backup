@@ -22,6 +22,7 @@ public class ActiveWeapon : MonoBehaviour
         Switch = 2,
         View = 3
     }
+
     public static WeaponPickup[] equippedWeapon = new WeaponPickup[4];
 
     public UnityEngine.Animations.Rigging.Rig handIk;
@@ -45,8 +46,6 @@ public class ActiveWeapon : MonoBehaviour
     GunCameraController gunCameraController;
     [SerializeField]
     Transform[] equippedWeaponParent = new Transform[3];
-    //[SerializeField]
-    //GameEvent holdWeapon;
 
     InputController inputController;
     ShootController shootController;
@@ -74,7 +73,7 @@ public class ActiveWeapon : MonoBehaviour
 
     private void Awake()
     {
-        //MakeInstance();
+        
     }
 
     // Start is called before the first frame update
@@ -223,7 +222,6 @@ public class ActiveWeapon : MonoBehaviour
         triggerAmmoList.RemoveAt(nearestAmmoIndex);
         gunCameraController.SetHasScope(pickedAmmo.ammoStats.zoomType == AmmoStats.ZoomType.HasScope);
     }
-
 
     void SwitchWeapon(WeaponPickup activateWeapon)
     {

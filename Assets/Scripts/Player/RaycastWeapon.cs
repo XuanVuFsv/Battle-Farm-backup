@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cysharp.Threading.Tasks;
 
-public class RaycastWeapon : MonoBehaviour, IShootable
+// The RaycastWeapon as Context defines the interface of interest to clients.
+public class RaycastWeapon : MonoBehaviour
 {
-    public ShootingHandler shootingHandler;
+    public IWeaponStragety weaponHandler;
+
     public AmmoStatsController ammoStatsController;
     CameraShake cameraShake;
     GunCameraShake gunCameraShake;
@@ -41,13 +44,14 @@ public class RaycastWeapon : MonoBehaviour, IShootable
 
     private void Start()
     {
-        shootingHandler = GetComponent<ShootingHandler>();
         cameraShake = GetComponent<CameraShake>();
-        ammoStatsController = GetComponent<AmmoStatsController>();
+        //ammoStatsController = GetComponent<AmmoStatsController>();
         weaponStats = GetComponent<WeaponStatsController>().weaponStats;
 
         fpsCameraTransform = Camera.main.transform;
         layerMask = ~(1 << LayerMask.NameToLayer("Ignore Raycast") | 1 << LayerMask.NameToLayer("Ignore Player") | 1 << LayerMask.NameToLayer("Only Player"));
+
+        SetWeaponStrategy();
 
         #region
         //gunCameraShake = GetComponent<GunCameraShake>();
@@ -56,7 +60,33 @@ public class RaycastWeapon : MonoBehaviour, IShootable
         #endregion
     }
 
-    public void StartFiring()
+    public async UniTaskVoid SetInputData()
+    {
+        await UniTask.WaitUntil(() => ammoStatsController.ammoStats != null);
+        Debug.Log(ammoStatsController.ammoStats);
+        ShootingInputData shootingInputData = new ShootingInputData(ammoStatsController.ammoStats.shootingHandleType, ammoStatsController, raycastOrigin, fpsCameraTransform, hitEvent, cameraShake, bulletSpawnPoint, layerMask);
+        weaponHandler.SetInputData(shootingInputData);
+    }
+
+    void SetWeaponStrategy()
+    {
+        if (GetComponent<ShootingHandler>())
+        {
+            weaponHandler = GetComponent<ShootingHandler>();
+            //Debug.Log(ammoStatsController);
+            var _setInput = SetInputData();
+        }
+        else if (GetComponent<ActionHandler>())
+        {
+            weaponHandler = GetComponent<ActionHandler>();
+        }
+        else
+        {
+            weaponHandler = gameObject.AddComponent<ActionHandler>();
+        }
+    }
+
+    public void LeftMouseBehaviourHandle()
     {
         if (muzzleFlash) muzzleFlash.Emit(1);
 
@@ -82,7 +112,8 @@ public class RaycastWeapon : MonoBehaviour, IShootable
 
         if (useDifferentClassForHandleShooting)
         {
-            shootingHandler.ShootingHandle(new ShootingHandler.ShootingInputData(ammoStatsController.ammoStats.shootingHandleType, ammoStatsController, raycastOrigin, fpsCameraTransform, hitEvent, cameraShake, bulletSpawnPoint, layerMask));
+            weaponHandler.HandleLeftMouseClick();
+            Debug.Log("Handle Left Mouse Click");
         }
         else ShootingHandle();
     }

@@ -607,32 +607,6 @@ AnimatorController:
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
---- !u!1102 &86437734208463847
-AnimatorState:
-  serializedVersion: 6
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: HoldWeaponRun
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Transitions: []
-  m_StateMachineBehaviours: []
-  m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
-  m_WriteDefaultValues: 1
-  m_Mirror: 0
-  m_SpeedParameterActive: 0
-  m_MirrorParameterActive: 0
-  m_CycleOffsetParameterActive: 0
-  m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 50fb12892b9dad34d9a489b6cbd41ab4, type: 2}
-  m_Tag: 
-  m_SpeedParameter: 
-  m_MirrorParameter: 
-  m_CycleOffsetParameter: 
-  m_TimeParameter: 
 --- !u!1102 &279829396186079122
 AnimatorState:
   serializedVersion: 6
@@ -719,7 +693,7 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 776255943319707814}
-    m_Position: {x: -460, y: 10, z: 0}
+    m_Position: {x: -620, y: 10, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8445844518404705990}
     m_Position: {x: 550, y: -40, z: 0}
@@ -742,9 +716,6 @@ AnimatorStateMachine:
     m_State: {fileID: 8453911820357740164}
     m_Position: {x: 550, y: -120, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: 86437734208463847}
-    m_Position: {x: -470, y: -140, z: 0}
-  - serializedVersion: 1
     m_State: {fileID: 4614092395784748211}
     m_Position: {x: 550, y: 150, z: 0}
   - serializedVersion: 1
@@ -763,9 +734,9 @@ AnimatorStateMachine:
   - first: {fileID: 5609592613188789099}
     second: []
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: -670, y: -50, z: 0}
-  m_EntryPosition: {x: -670, y: 10, z: 0}
-  m_ExitPosition: {x: -450, y: -50, z: 0}
+  m_AnyStatePosition: {x: -370, y: 20, z: 0}
+  m_EntryPosition: {x: -830, y: 10, z: 0}
+  m_ExitPosition: {x: -610, y: -50, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: 776255943319707814}
 --- !u!1101 &1729499398058850819

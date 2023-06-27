@@ -13,9 +13,9 @@ public class ShootController : MonoBehaviour
 
     [Header("Shooting")]
     public ActiveWeapon activeWeapon;
-    public RaycastWeapon raycastWeapon;
     public WeaponStatsController currentWeaponStatsController;
     public bool isFire;
+    public RaycastWeapon raycastWeapon;
 
     [Header("Aiming")]
     [SerializeField]
@@ -83,41 +83,65 @@ public class ShootController : MonoBehaviour
     void Update()
     {
         //Out of ammo check
+        CheckOuOfAmmo();
+
+        //Aim handling
+        RightMouseBehaviourHandle();
+
+        //Fire handling
+        LeftMouseBehaviourHandle();
+
+        //Reload handling
+        ReloadHandle();
+    }
+
+    void CheckOuOfAmmo()
+    {
         if (currentWeaponStatsController.IsOutOfAmmo())
         {
             //Toggle bool
             isFire = false;
         }
+    }
 
-        //Aim handling
-        if (inputController.isAim && (activeWeapon.activeWeaponIndex == 0 || activeWeapon.activeWeaponIndex == 1) && !isReloading)
+    void RightMouseBehaviourHandle()
+    {
+        if (raycastWeapon.weaponHandler is IPrimaryWeaponStragety)
         {
-            PlayAimAnimation();
+            if (inputController.isAim && (activeWeapon.activeWeaponIndex == 0 || activeWeapon.activeWeaponIndex == 1) && !isReloading)
+            {
+                PlayAimAnimation();
+            }
         }
+    }
 
-        //Fire handling
-        if (((inputController.isFire && activeWeapon.activeWeaponIndex == 0)
+    void LeftMouseBehaviourHandle()
+    {
+        if (raycastWeapon.weaponHandler is IPrimaryWeaponStragety)
+        {
+            if (((inputController.isFire && activeWeapon.activeWeaponIndex == 0)
             || (inputController.isSingleFire && activeWeapon.activeWeaponIndex != 0))
             && !currentWeaponStatsController.IsOutOfAmmo() && !isReloading)
-        {
-            Debug.Log("Shoot");
-            //Shoot automatic
-            if (Time.time - lastFired > 1 / currentWeaponStatsController.currentAmmoStatsController.fireRate)
             {
-                Debug.Log("Shoot");
-                lastFired = Time.time;
-
-                //Remove 1 bullet from ammo
-                currentWeaponStatsController.UpdateAmmo(-currentWeaponStatsController.currentAmmoStatsController.bulletCount);
-                shootingTime++;
-                //currentWeaponStatsController.UpdateAmmoUI();
-
-                isFire = true;
-                raycastWeapon.StartFiring();
-
-                if (currentWeaponStatsController.currentAmmoStatsController.ammoStats.zoomType == AmmoStats.ZoomType.HasScope && inAim)
+                //Debug.Log("Shoot");
+                //Shoot automatic
+                if (Time.time - lastFired > 1 / currentWeaponStatsController.currentAmmoStatsController.fireRate)
                 {
-                    PlayAimAnimation();
+                    //Debug.Log("Shoot");
+                    lastFired = Time.time;
+
+                    //Remove 1 bullet from ammo
+                    currentWeaponStatsController.UpdateAmmo(-currentWeaponStatsController.currentAmmoStatsController.bulletCount);
+                    shootingTime++;
+                    //currentWeaponStatsController.UpdateAmmoUI();
+
+                    isFire = true;
+                    raycastWeapon.LeftMouseBehaviourHandle();
+
+                    if (currentWeaponStatsController.currentAmmoStatsController.ammoStats.zoomType == AmmoStats.ZoomType.HasScope && inAim)
+                    {
+                        PlayAimAnimation();
+                    }
                 }
             }
         }
@@ -128,8 +152,10 @@ public class ShootController : MonoBehaviour
             //rigController.SetBool("inAttack", inputController.isFire);
             raycastWeapon.StopFiring();
         }
+    }
 
-        //Reload handling
+    void ReloadHandle()
+    {
         if (((inputController.isReload && !currentWeaponStatsController.IsFullMagazine())
             || (currentWeaponStatsController.autoReload && currentWeaponStatsController.IsOutOfAmmo()))
             && currentWeaponStatsController.weaponSlot != ActiveWeapon.WeaponSlot.Melee
@@ -144,10 +170,15 @@ public class ShootController : MonoBehaviour
     //Reload handling
     IEnumerator Reload()
     {
-        Debug.Log("Reload");
-        rigController.SetTrigger("ReloadAK");
-        rigController.SetBool("reloading", true);
-        rigController.SetBool("inAim", false);
+        if (activeWeapon.activeWeaponIndex == (int)ActiveWeapon.WeaponSlot.Primary)
+        {
+            Debug.Log("Reload");
+
+            rigController.SetTrigger("ReloadAK");
+            rigController.SetBool("reloading", true);
+            rigController.SetBool("inAim", false);
+        }
+
         isReloading = true;
         //Debug.Log(isReloading);
         if (inAim)
@@ -168,8 +199,12 @@ public class ShootController : MonoBehaviour
         if (ended)
         {
             currentWeaponStatsController.UpdateAmmoUI();
-            Debug.Log("Reload");
-            rigController.SetTrigger("ReloadAK");
+
+            if (activeWeapon.activeWeaponIndex == (int)ActiveWeapon.WeaponSlot.Primary)
+            {
+                Debug.Log("Reload");
+                rigController.SetTrigger("ReloadAK");
+            }
         }
         rigController.SetBool("reloading", false);
     }
