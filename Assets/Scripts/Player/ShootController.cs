@@ -31,8 +31,7 @@ public class ShootController : MonoBehaviour
     private Vector3 newMagazineLocalEulerAngles;
 
     [Header("Events")]
-    [SerializeField]
-    GameEvent aimEvent;
+    public GameEvent aimEvent;
     [SerializeField]
     GameEvent fireEvent;
     [SerializeField]
@@ -110,13 +109,14 @@ public class ShootController : MonoBehaviour
         {
             if (inputController.isAim && (activeWeapon.activeWeaponIndex == 0 || activeWeapon.activeWeaponIndex == 1) && !isReloading)
             {
-                PlayAimAnimation();
+                raycastWeapon.HandleRightMouseClick();
             }
         }
     }
 
     void LeftMouseBehaviourHandle()
     {
+        #region Logic for PrimaryWeapon
         if (raycastWeapon.weaponHandler is IPrimaryWeaponStragety)
         {
             if (((inputController.isFire && activeWeapon.activeWeaponIndex == 0)
@@ -136,22 +136,27 @@ public class ShootController : MonoBehaviour
                     //currentWeaponStatsController.UpdateAmmoUI();
 
                     isFire = true;
-                    raycastWeapon.LeftMouseBehaviourHandle();
+                    raycastWeapon.HandleLeftMouseClick();
 
                     if (currentWeaponStatsController.currentAmmoStatsController.ammoStats.zoomType == AmmoStats.ZoomType.HasScope && inAim)
                     {
-                        PlayAimAnimation();
+                        raycastWeapon.HandleRightMouseClick();
                     }
                 }
             }
-        }
 
-        if (inputController.isStopFire)
-        {
-            isFire = false;
-            //rigController.SetBool("inAttack", inputController.isFire);
-            raycastWeapon.StopFiring();
+            if (inputController.isStopFire)
+            {
+                isFire = false;
+                //rigController.SetBool("inAttack", inputController.isFire);
+                raycastWeapon.StopFiring();
+            }
         }
+        else if (raycastWeapon.weaponHandler is IHandGunWeaponStragety)
+        {
+            if (inputController.isFire && activeWeapon.activeWeaponIndex == 1) raycastWeapon.HandleLeftMouseClick();
+        }
+        #endregion
     }
 
     void ReloadHandle()
@@ -209,16 +214,16 @@ public class ShootController : MonoBehaviour
         rigController.SetBool("reloading", false);
     }
 
-    public void PlayAimAnimation()
-    {
-        if (!rigController) return;
-        inAim = !inAim;
-        aimEvent.Notify(inAim);
+    //public void PlayAimAnimation()
+    //{
+    //    if (!rigController) return;
+    //    inAim = !inAim;
+    //    aimEvent.Notify(inAim);
 
-        if (inAim) aimEvent.Notify(currentWeaponStatsController.currentAmmoStatsController.multiplierRecoilOnAim);
+    //    if (inAim) aimEvent.Notify(currentWeaponStatsController.currentAmmoStatsController.multiplierRecoilOnAim);
 
-        rigController.SetBool("inAim", inAim);
-    }
+    //    rigController.SetBool("inAim", inAim);
+    //}
 
     public void ApplyAimingAttributes()
     {
@@ -238,22 +243,22 @@ public class ShootController : MonoBehaviour
         {
             case "detach_magazine":
                 DeTachMagazine();
-                Debug.Log("Detach");
+                //Debug.Log("Detach");
                 break;
             case "drop_magazine":
-                Debug.Log("Drop");
+                //Debug.Log("Drop");
                 DropMagazine();
                 break;
             case "refill_magazine":
-                Debug.Log("Refill");
+                //Debug.Log("Refill");
                 RefillMagazine();
                 break;
             case "attach_magazine":
-                Debug.Log("Attach");
+                //Debug.Log("Attach");
                 AttachMagazine();
                 break;
             case "take_new_magazine":
-                Debug.Log("Take new");
+                //Debug.Log("Take new");
                 TakeNewMagazine();
                 break;
         }
@@ -288,7 +293,7 @@ public class ShootController : MonoBehaviour
 
     public void AttachMagazine()
     {
-        Debug.Log("AttachMagazine");
+        //Debug.Log("AttachMagazine");
         if (magazineObject != null) magazineObject.SetActive(true);
         isReloading = false;
         Destroy(magazineHand);

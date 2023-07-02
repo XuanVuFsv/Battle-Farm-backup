@@ -5,8 +5,9 @@ using UnityEngine;
 [System.Serializable]
 public class ShootingInputData
 {
-    public ShootingInputData(AmmoStats.ShootingHandleType _shootingHandleType, AmmoStatsController _ammoStatsController, Transform _raycastOrigin, Transform _fpsCameraTransform, GameEvent _hitEvent, CameraShake _cameraShake, Transform _bulletSpawnPoint, int _layerMask)
+    public ShootingInputData(ShootController _shootController, AmmoStats.ShootingHandleType _shootingHandleType, AmmoStatsController _ammoStatsController, Transform _raycastOrigin, Transform _fpsCameraTransform, GameEvent _hitEvent, CameraShake _cameraShake, Transform _bulletSpawnPoint, int _layerMask)
     {
+        shootController = _shootController;
         shootingHandleType = _shootingHandleType;
         ammoStatsController = _ammoStatsController;
         raycastOrigin = _raycastOrigin;
@@ -16,6 +17,8 @@ public class ShootingInputData
         bulletSpawnPoint = _bulletSpawnPoint;
         layerMask = _layerMask;
     }
+
+    public ShootController shootController;
 
     public AmmoStats.ShootingHandleType shootingHandleType;
     public AmmoStatsController ammoStatsController;

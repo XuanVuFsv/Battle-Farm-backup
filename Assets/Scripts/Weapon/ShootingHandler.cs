@@ -30,7 +30,7 @@ public class ShootingHandler : MonoBehaviour, IPrimaryWeaponStragety
 
     public void HandleRightMouseClick()
     {
-
+        PlayAimAnimation();
     }
 
     public void ShootingHandle()
@@ -107,5 +107,18 @@ public class ShootingHandler : MonoBehaviour, IPrimaryWeaponStragety
 
         GameObject newBullet = Instantiate(shootingInputData.ammoStatsController.ammoStats.bulletObject, shootingInputData.bulletSpawnPoint.position, Quaternion.identity);
         newBullet.GetComponent<BulletBehaviour>().TriggerBullet(shootingInputData.ammoStatsController.ammoStats.name, shootingInputData.ammoStatsController.force, direction);
+    }
+
+    public void PlayAimAnimation()
+    {
+        ShootController shootController = shootingInputData.shootController;
+        if (!shootController.rigController) return;
+
+        shootController.inAim = !shootController.inAim;
+        shootController.aimEvent.Notify(shootController.inAim);
+
+        if (shootController.inAim) shootController.aimEvent.Notify(shootingInputData.ammoStatsController.multiplierRecoilOnAim);
+
+        shootController.rigController.SetBool("inAim", shootController.inAim);
     }
 }

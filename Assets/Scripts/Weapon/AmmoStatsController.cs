@@ -25,6 +25,8 @@ public class AmmoStatsController : MonoBehaviour
 
     public bool hasAssignAmmoData = false;
 
+    public RaycastWeapon raycastWeapon;
+    public WeaponStatsController weaponStatsController;
     public ParticleSystem hitEffectPrefab;
     public TrailRenderer bulletTracer;
     public GameObject bulletObject;
@@ -45,6 +47,9 @@ public class AmmoStatsController : MonoBehaviour
     private void Start()
     {
         cameraShake = gameObject.GetComponent<CameraShake>();
+        raycastWeapon = GetComponent<RaycastWeapon>();
+        weaponStatsController = GetComponent<WeaponStatsController>();
+
         if (ammoStats)
         {
             AssignAmmotData();
@@ -88,6 +93,7 @@ public class AmmoStatsController : MonoBehaviour
 
         cameraShake.AssignRecoilPattern(ammoStats.recoildPattern);
 
-        GetComponent<WeaponStatsController>().ammoInMagazine = ammoStats.ammoAllowedInMagazine;
+        weaponStatsController.ammoInMagazine = ammoStats.ammoAllowedInMagazine;
+        //raycastWeapon.SetWeaponStrategy();
     }
 }
