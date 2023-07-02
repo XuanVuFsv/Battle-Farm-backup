@@ -9,6 +9,7 @@ public class RaycastWeapon : MonoBehaviour
     public IWeaponStragety weaponHandler;
 
     public AmmoStatsController ammoStatsController;
+    public ShootController shootController;
     CameraShake cameraShake;
     GunCameraShake gunCameraShake;
 
@@ -32,6 +33,7 @@ public class RaycastWeapon : MonoBehaviour
 
     [SerializeField] string currentHitObject = "";
     [SerializeField] bool useDifferentClassForHandleShooting = true;
+    [SerializeField] bool noStragety = true;
 
     #region
     //[Header("Weapon Sway (not used)")]
@@ -51,7 +53,7 @@ public class RaycastWeapon : MonoBehaviour
         fpsCameraTransform = Camera.main.transform;
         layerMask = ~(1 << LayerMask.NameToLayer("Ignore Raycast") | 1 << LayerMask.NameToLayer("Ignore Player") | 1 << LayerMask.NameToLayer("Only Player"));
 
-        SetWeaponStrategy();
+        if (gameObject.activeInHierarchy) SetAsWeaponStrategy();
 
         #region
         //gunCameraShake = GetComponent<GunCameraShake>();
@@ -60,25 +62,31 @@ public class RaycastWeapon : MonoBehaviour
         #endregion
     }
 
-    public async UniTaskVoid SetInputData()
+    public async UniTaskVoid SetAsInputData()
     {
+        Debug.Log(gameObject.name);
+        Debug.Log("Wait ammoStatController instance created");
         await UniTask.WaitUntil(() => ammoStatsController.ammoStats != null);
-        Debug.Log(ammoStatsController.ammoStats);
-        ShootingInputData shootingInputData = new ShootingInputData(ammoStatsController.ammoStats.shootingHandleType, ammoStatsController, raycastOrigin, fpsCameraTransform, hitEvent, cameraShake, bulletSpawnPoint, layerMask);
+        //if (ammoStatsController == null) await UniTask.Yield();
+        Debug.Log(ammoStatsController);
+        ShootingInputData shootingInputData = new ShootingInputData(shootController, ammoStatsController.ammoStats.shootingHandleType, ammoStatsController, raycastOrigin, fpsCameraTransform, hitEvent, cameraShake, bulletSpawnPoint, layerMask);
         weaponHandler.SetInputData(shootingInputData);
     }
 
-    void SetWeaponStrategy()
+    public void SetAsWeaponStrategy()
     {
+        if (gameObject.activeInHierarchy == false) return;
+
         if (GetComponent<ShootingHandler>())
         {
             weaponHandler = GetComponent<ShootingHandler>();
             //Debug.Log(ammoStatsController);
-            var _setInput = SetInputData();
+            var _setInput = SetAsInputData();
         }
         else if (GetComponent<ActionHandler>())
         {
             weaponHandler = GetComponent<ActionHandler>();
+            var setInput = SetAsInputData();
         }
         else
         {
@@ -86,11 +94,11 @@ public class RaycastWeapon : MonoBehaviour
         }
     }
 
-    public void LeftMouseBehaviourHandle()
+    public void HandleLeftMouseClick()
     {
         if (muzzleFlash) muzzleFlash.Emit(1);
 
-        cameraShake.GenerateRecoil(ammoStatsController.ammoStats.zoomType);
+        //cameraShake.GenerateRecoil(ammoStatsController.ammoStats.zoomType);
         //if (ammoStatsController.ammoStats.zoomType == AmmoStats.ZoomType.HasScope) cameraShake.GenerateRecoil(true);
         //else
         //{
@@ -113,9 +121,14 @@ public class RaycastWeapon : MonoBehaviour
         if (useDifferentClassForHandleShooting)
         {
             weaponHandler.HandleLeftMouseClick();
-            Debug.Log("Handle Left Mouse Click");
+            //Debug.Log("Handle Left Mouse Click");
         }
         else ShootingHandle();
+    }
+
+    public void HandleRightMouseClick()
+    {
+        weaponHandler.HandleRightMouseClick();
     }
 
     public void StopFiring()
@@ -228,5 +241,10 @@ public class RaycastWeapon : MonoBehaviour
         //}
         Gizmos.DrawRay(raycastOrigin.position, direction);
         Gizmos.DrawLine(raycastOrigin.position, raycastOrigin.position + direction * ammoStatsController.range);
+    }
+
+    private void OnEnable()
+    {
+        //shootController.raycastWeapon.SetWeaponStrategy();
     }
 }

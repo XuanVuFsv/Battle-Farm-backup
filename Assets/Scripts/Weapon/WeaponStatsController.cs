@@ -99,13 +99,13 @@ public class WeaponStatsController: MonoBehaviour
         if (!currentAmmoStatsController.ammoStats)
         {
 
-            Debug.Log("Add to null " + transform.parent.name);
+            //Debug.Log("Add to null " + transform.parent.name);
             currentAmmoStatsController.ammoStats = ammoPickup.ammoStats;
             currentAmmoStatsController.AssignAmmotData();
 
             if (ofActiveWeapon)
             {
-                Debug.Log("Set" + currentAmmoStatsController.multiplierForAmmo);
+                //Debug.Log("Set" + currentAmmoStatsController.multiplierForAmmo);
                 gunCamera.SetMultiplier(currentAmmoStatsController.multiplierForAmmo);
             }
 
