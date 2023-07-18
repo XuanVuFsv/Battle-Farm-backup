@@ -112,6 +112,13 @@ public class ShootController : MonoBehaviour
                 raycastWeapon.HandleRightMouseClick();
             }
         }
+        else if (raycastWeapon.weaponHandler is IHandGunWeaponStragety)
+        {
+            if (inputController.isAim)
+            {
+                raycastWeapon.HandleRightMouseClick();
+            }
+        }
     }
 
     void LeftMouseBehaviourHandle()
