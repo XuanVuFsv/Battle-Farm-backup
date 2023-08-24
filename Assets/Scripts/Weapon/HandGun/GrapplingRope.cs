@@ -11,10 +11,7 @@ using UnityEngine;
 // Note:
 /// This script is assigned to the actionHandler gun
 ///
-// I learned how to create this script by following along with a YouTube tutorial
-// Credits: https://youtu.be/8nENcDnxeVE
-///
-/// -> if you don't understand the code, just watch the tutorial
+// Credits: https://youtu.be/8nENcDnxeVE https://www.youtube.com/watch?v=TYzZsBl3OI0
 
 public class GrapplingRope : MonoBehaviour
 {
@@ -34,9 +31,6 @@ public class GrapplingRope : MonoBehaviour
     private LineRenderer lr;
     private Vector3 currentGrapplePosition;
 
-    [SerializeField]
-    private int positionCount = 0;
-
     private void Awake()
     {
         // get references
@@ -54,13 +48,12 @@ public class GrapplingRope : MonoBehaviour
 
     void DrawRope()
     {
-        positionCount = lr.positionCount;
         if (!actionHandler.HasShootingInputData()) return;
 
         // if not actionHandler, don't draw rope
         if (!actionHandler.IsActiveGrapple())
         {
-            if (actionHandler.shootingInputData.bulletSpawnPoint == null) return;
+            //if (actionHandler.shootingInputData.bulletSpawnPoint == null) return;
 
             currentGrapplePosition = actionHandler.shootingInputData.bulletSpawnPoint.position;
 
@@ -84,7 +77,7 @@ public class GrapplingRope : MonoBehaviour
             // set the positionCount of the lineRenderer depending on the quality of the rope
             lr.positionCount = quality + 1;
 
-            Debug.Log("********************" + lr.positionCount);
+            //Debug.Log("********************" + lr.positionCount);
         }
 
         // set the spring simulation

@@ -81,8 +81,10 @@ public class ActiveWeapon : MonoBehaviour
     {
         shootController = GetComponent<ShootController>();
         inputController = GetComponent<InputController>();
+
         EquipWeapon(WeaponAction.Pickup, defaultWeapon0, true);
         SetupNewWeapon(defaultWeapon0.weaponStats);
+
         AttachWeapon(defaultWeapon1, weaponActivateSlots[1], 1);
         AttachWeapon(defaultWeapon2, weaponActivateSlots[2], 2);
         AttachWeapon(defaultWeapon3, weaponActivateSlots[3], 3);
@@ -103,8 +105,6 @@ public class ActiveWeapon : MonoBehaviour
         //if (GetNearestAmmo()) nearestAmmo = GetNearestAmmo().gameObject.transform.name;
 
         rigController.SetBool("isHoldWeapon", isHoldWeapon);
-        if (equippedWeapon[activeWeaponIndex].weaponSlot == WeaponSlot.Sidearm) rigController.SetBool("inAttack", inputController.isFire && inputController.isSingleFire);
-        else rigController.SetBool("inAttack", inputController.isFire);
 
         //if (Input.GetKeyDown(KeyCode.KeypadEnter)) Time.timeScale = 1;
 
@@ -160,6 +160,16 @@ public class ActiveWeapon : MonoBehaviour
         {
             SwitchWeapon(equippedWeapon[3]);
         }
+    }
+
+    public WeaponPickup GetWeaponPickupByIndex(int index)
+    {
+        return equippedWeapon[index];
+    }
+
+    public WeaponPickup GetActiveWeaponPickup()
+    {
+        return equippedWeapon[activeWeaponIndex];
     }
 
     public static WeaponPickup GetWeapon(int index)

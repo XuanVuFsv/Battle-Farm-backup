@@ -53,7 +53,7 @@ public class ActionHandler : MonoBehaviour, IHandGunWeaponStragety
 
     public bool HasShootingInputData()
     {
-        return !(shootingInputData == null);
+        return (shootingInputData != null && shootingInputData.bulletSpawnPoint != null);
     }
 
     public void HandleLeftMouseClick()
@@ -111,7 +111,6 @@ public class ActionHandler : MonoBehaviour, IHandGunWeaponStragety
         velocityToSet = CalculateJumpVelocity(transform.position, grapplePoint, highestPointOnArc);
 
         Invoke(nameof(SetVelocity), 0.1f);
-        Invoke(nameof(ResetRestrictions), 3f);
     }
 
     private void SetVelocity()
@@ -140,6 +139,7 @@ public class ActionHandler : MonoBehaviour, IHandGunWeaponStragety
     void StopGrapple()
     {
         //lineRenderer.positionCount = 0;
+        ResetRestrictions();
         Destroy(joint);
     }
 

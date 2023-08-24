@@ -7,6 +7,8 @@ public class AmmoStatsController : MonoBehaviour
 {
     public AmmoStats ammoStats;
 
+    public AmmoStats.ZoomType zoomType;
+
     public int dropOffDsitance;
 
     public int decreseDamageRate;
@@ -66,6 +68,8 @@ public class AmmoStatsController : MonoBehaviour
         //if (hasAssignAmmoData) return;
         //GetComponent<RaycastWeapon>().currentShootingMechanic = ammoStats.shootingMechanic;
 
+        zoomType = ammoStats.zoomType;
+
         dropOffDsitance = ammoStats.dropOffDsitance;
         decreseDamageRate = ammoStats.decreseDamageRate;
 
@@ -85,6 +89,7 @@ public class AmmoStatsController : MonoBehaviour
 
         hitEffectPrefab = ammoStats.hitEffectPrefab;
         bulletTracer = ammoStats.bulletTracer;
+        //Debug.Log(ammoStats.bulletObject);
         bulletObject = ammoStats.bulletObject;
 
         artwork = ammoStats.artwork;
@@ -94,6 +99,6 @@ public class AmmoStatsController : MonoBehaviour
         cameraShake.AssignRecoilPattern(ammoStats.recoildPattern);
 
         weaponStatsController.ammoInMagazine = ammoStats.ammoAllowedInMagazine;
-        //raycastWeapon.SetWeaponStrategy();
+        raycastWeapon.SetAsWeaponStrategy();
     }
 }

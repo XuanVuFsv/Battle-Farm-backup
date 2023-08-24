@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Assault_Rifle_01_Demo.unity
     guid: 5923bb0107620bc46b2727a5d3f12141
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/LoadingScene.unity
     guid: ef29620e2cc1b2a40b76bc957031a72f
   m_configObjects: {}

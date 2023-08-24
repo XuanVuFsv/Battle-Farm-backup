@@ -67,7 +67,8 @@ public class InputController : MonoBehaviour
         look.x = mouseX = Input.GetAxis("Mouse X");
         look.y = mouseY = Input.GetAxis("Mouse Y");
 
-        isJump = isBrake = Input.GetKeyDown(KeyCode.Space);
+        isJump = Input.GetKeyDown(KeyCode.Space);
+        isBrake = Input.GetKey(KeyCode.G);
         isReload = Input.GetKeyDown(KeyCode.R);
         isAim = Input.GetMouseButtonDown(1);
     }

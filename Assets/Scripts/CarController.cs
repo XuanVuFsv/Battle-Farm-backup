@@ -31,6 +31,7 @@ public class CarController : MonoBehaviour
         Steer();
         Accelerate();
         UpdateWheelPoses();
+        if (Input.GetKeyDown(KeyCode.Z)) RecoverCarRotation();
     }
 
     void Steer()
@@ -42,6 +43,8 @@ public class CarController : MonoBehaviour
     void Accelerate()
     {
         motorTorque = inputController.vertical * motorForce;
+        //flWheelCollider.motorTorque = motorTorque;
+        //frWheelCollider.motorTorque = motorTorque;
         flWheelCollider.motorTorque = motorTorque;
         frWheelCollider.motorTorque = motorTorque;
         if (inputController.isBrake || motorTorque == 0)
@@ -58,11 +61,10 @@ public class CarController : MonoBehaviour
     {
         if (isBrake)
         {
-
             if (motorTorque == 0 && rigidbody.velocity.magnitude > 0)
             {
-                //rlWheelCollider.brakeTorque = brakeForce / 2;
-                //rrWheelCollider.brakeTorque = brakeForce / 2;
+                rlWheelCollider.brakeTorque = brakeForce / 2;
+                rrWheelCollider.brakeTorque = brakeForce / 2;
                 flWheelCollider.brakeTorque = brakeForce / 2;
                 frWheelCollider.brakeTorque = brakeForce / 2;
                 return;
@@ -73,8 +75,8 @@ public class CarController : MonoBehaviour
         }
         flWheelCollider.brakeTorque = 0;
         frWheelCollider.brakeTorque = 0;
-        //rlWheelCollider.brakeTorque = 0;
-        //rrWheelCollider.brakeTorque = 0;
+        rlWheelCollider.brakeTorque = 0;
+        rrWheelCollider.brakeTorque = 0;
     }
 
     void UpdateWheelPoses()
@@ -95,4 +97,9 @@ public class CarController : MonoBehaviour
         _transform.position = position;
         _transform.rotation = quaternion;
     }
+
+    void RecoverCarRotation()
+    {
+        transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 0);
+    }    
 }

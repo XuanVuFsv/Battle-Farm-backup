@@ -64,11 +64,11 @@ public class RaycastWeapon : MonoBehaviour
 
     public async UniTaskVoid SetAsInputData()
     {
-        Debug.Log(gameObject.name);
-        Debug.Log("Wait ammoStatController instance created");
+        //Debug.Log(gameObject.name);
+        //Debug.Log("Wait ammoStatController instance created");
         await UniTask.WaitUntil(() => ammoStatsController.ammoStats != null);
         //if (ammoStatsController == null) await UniTask.Yield();
-        Debug.Log(ammoStatsController);
+        //Debug.Log(ammoStatsController);
         ShootingInputData shootingInputData = new ShootingInputData(shootController, ammoStatsController.ammoStats.shootingHandleType, ammoStatsController, raycastOrigin, fpsCameraTransform, hitEvent, cameraShake, bulletSpawnPoint, layerMask);
         weaponHandler.SetInputData(shootingInputData);
     }
