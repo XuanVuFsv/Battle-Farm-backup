@@ -119,7 +119,7 @@ public class WeaponStatsController: MonoBehaviour
         }
         else if (currentAmmoStatsController.ammoStats.fruitType == ammoPickup.ammoStats.fruitType)
         {
-            Debug.Log("Add same ammo");
+            //Debug.Log("Add same ammo");
 
             AddAmmo(ammoPickup.ammoContain);
 
@@ -134,7 +134,7 @@ public class WeaponStatsController: MonoBehaviour
         }
         else
         {
-            Debug.Log("Add new ammo");
+            //Debug.Log("Add new ammo");
 
             if (ammunitionChestPicked)
             {

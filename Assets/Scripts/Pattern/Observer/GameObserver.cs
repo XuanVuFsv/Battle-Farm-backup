@@ -95,6 +95,11 @@ public abstract class GameObserver : MonoBehaviour, IGameObserver
         //Debug.Log($"Execute by {this} in base class with value: {val}");
     }
 
+    public virtual void Execute(IGameEvent gEvent, object obj)
+    {
+        //Debug.Log($"Execute by {this} in base class with value: {point} {normal}");
+    }
+
     public virtual void Execute(IGameEvent gEvent, RaycastHit hit)
     {
         //Debug.Log($"Execute by {this} in base class with value: {hit}");

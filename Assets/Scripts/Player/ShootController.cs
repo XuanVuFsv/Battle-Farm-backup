@@ -21,7 +21,7 @@ public class ShootController : MonoBehaviour
     [SerializeField]
     private PlayerAim playerAim;
 
-    private InputController inputController;
+    public InputController inputController;
 
     [Header("Reload")]
     public Animator rigController;
@@ -41,7 +41,10 @@ public class ShootController : MonoBehaviour
     private float lastFired;
     public bool isReloading = false;
     public bool inAim = false;
+    public bool readyToFire = true;
     public int shootingTime = 0;
+
+    int frame = 0;
 
     #region Advance Settings for muzzle and flash effect
     //[Header("Muzzleflash Settings")]
@@ -81,13 +84,13 @@ public class ShootController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        frame++;
+
         //Out of ammo check
         CheckOuOfAmmo();
 
-        //Aim handling
         RightMouseBehaviourHandle();
 
-        //Fire handling
         LeftMouseBehaviourHandle();
 
         //Reload handling
@@ -103,18 +106,31 @@ public class ShootController : MonoBehaviour
         }
     }
 
+    //void MouseHandle()
+    //{
+    //    if (inputController.isAim)
+    //    {
+    //        //Aim handling
+    //        RightMouseBehaviourHandle();
+    //    }
+    //    else
+    //    {
+    //        //Fire handling
+    //        LeftMouseBehaviourHandle();
+    //    }
+    //}
+
     void RightMouseBehaviourHandle()
     {
-        if (raycastWeapon.weaponHandler is IPrimaryWeaponStragety)
+        if (inputController.isAim)
         {
-            if (inputController.isAim && (activeWeapon.activeWeaponIndex == 0 || activeWeapon.activeWeaponIndex == 1) && !isReloading)
+            if (raycastWeapon.weaponHandler is IPrimaryWeaponStragety && !isReloading)
             {
+                //Debug.Log("Handle Right Click");
+                //Debug.Log(frame);
                 raycastWeapon.HandleRightMouseClick();
             }
-        }
-        else if (raycastWeapon.weaponHandler is IHandGunWeaponStragety)
-        {
-            if (inputController.isAim)
+            else if (raycastWeapon.weaponHandler is IHandGunWeaponStragety)
             {
                 raycastWeapon.HandleRightMouseClick();
             }
@@ -134,6 +150,8 @@ public class ShootController : MonoBehaviour
                 //Shoot automatic
                 if (Time.time - lastFired > 1 / currentWeaponStatsController.currentAmmoStatsController.fireRate)
                 {
+                    readyToFire = true;
+   
                     //Debug.Log("Shoot");
                     lastFired = Time.time;
 
@@ -147,8 +165,14 @@ public class ShootController : MonoBehaviour
 
                     if (currentWeaponStatsController.currentAmmoStatsController.ammoStats.zoomType == AmmoStats.ZoomType.HasScope && inAim)
                     {
+                        //Debug.Log("Handle Right Click");
+                        //Debug.Log(frame);
                         raycastWeapon.HandleRightMouseClick();
                     }
+                }
+                else
+                {
+                    DeactivateShooting();
                 }
             }
 
@@ -157,6 +181,7 @@ public class ShootController : MonoBehaviour
                 isFire = false;
                 //rigController.SetBool("inAttack", inputController.isFire);
                 raycastWeapon.StopFiring();
+                DeactivateShooting();
             }
         }
         else if (raycastWeapon.weaponHandler is IHandGunWeaponStragety)
@@ -164,6 +189,12 @@ public class ShootController : MonoBehaviour
             if (inputController.isFire && activeWeapon.activeWeaponIndex == 1) raycastWeapon.HandleLeftMouseClick();
         }
         #endregion
+    }
+
+    void DeactivateShooting()
+    {
+        readyToFire = false;
+        rigController.SetBool("inAttack", false);
     }
 
     void ReloadHandle()
@@ -192,7 +223,7 @@ public class ShootController : MonoBehaviour
         }
 
         isReloading = true;
-        //Debug.Log(isReloading);
+        Debug.Log(isReloading);
         if (inAim)
         {
             inAim = false; 
@@ -219,6 +250,14 @@ public class ShootController : MonoBehaviour
             }
         }
         rigController.SetBool("reloading", false);
+        RefillMagazine();
+    }
+
+    public void ApplyAttackAnimation()
+    {
+        //Debug.Log("Checking inAttack");
+        if (activeWeapon.GetActiveWeaponPickup().weaponSlot == ActiveWeapon.WeaponSlot.Sidearm) rigController.SetBool("inAttack", inputController.isSingleFire);
+        else rigController.SetBool("inAttack", true);
     }
 
     //public void PlayAimAnimation()
@@ -250,22 +289,21 @@ public class ShootController : MonoBehaviour
         {
             case "detach_magazine":
                 DeTachMagazine();
-                //Debug.Log("Detach");
+                Debug.Log("Detach event");
                 break;
             case "drop_magazine":
-                //Debug.Log("Drop");
+                Debug.Log("Drop event");
                 DropMagazine();
                 break;
             case "refill_magazine":
-                //Debug.Log("Refill");
-                RefillMagazine();
+                Debug.Log("Refill event");
                 break;
             case "attach_magazine":
-                //Debug.Log("Attach");
+                Debug.Log("Attach event");
                 AttachMagazine();
                 break;
             case "take_new_magazine":
-                //Debug.Log("Take new");
+                Debug.Log("Take new event");
                 TakeNewMagazine();
                 break;
         }
@@ -273,6 +311,7 @@ public class ShootController : MonoBehaviour
 
     void DeTachMagazine()
     {
+        Debug.Log("Run Detach funtion");
         if(!magazineHand) magazineHand = Instantiate(magazineObject, leftHand.transform, true);
 
         newMagazineLocalPosition = magazineHand.transform.localPosition;
@@ -283,11 +322,13 @@ public class ShootController : MonoBehaviour
 
     void DropMagazine()
     {
+        Debug.Log("Run Drop funtion");
         magazineHand.GetComponent<Rigidbody>().isKinematic = false;
     }
 
     void TakeNewMagazine()
     {
+        Debug.Log("Run Take New funtion");
         magazineHand.GetComponent<Rigidbody>().isKinematic = true;
         magazineHand.transform.localPosition = newMagazineLocalPosition;
         magazineHand.transform.localEulerAngles = newMagazineLocalEulerAngles;
@@ -295,19 +336,21 @@ public class ShootController : MonoBehaviour
 
     void RefillMagazine()
     {
+        Debug.Log("Run Refill function");
+        isReloading = false;
         currentWeaponStatsController.UpdateAmmoAfterReload();
     }
 
     public void AttachMagazine()
     {
-        //Debug.Log("AttachMagazine");
+        Debug.Log("Run AttachMagazine function");
         if (magazineObject != null) magazineObject.SetActive(true);
-        isReloading = false;
         Destroy(magazineHand);
     }
 
     public void ResetMagazine()
     {
+        Debug.Log("Run ResetMagazine funtion");
         if (magazineHand) Destroy(magazineHand);
     }
     #endregion

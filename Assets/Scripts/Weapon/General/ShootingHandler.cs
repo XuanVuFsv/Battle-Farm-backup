@@ -35,6 +35,7 @@ public class ShootingHandler : MonoBehaviour, IPrimaryWeaponStragety
 
     public void ShootingHandle()
     {
+        shootingInputData.shootController.ApplyAttackAnimation();
         if (shootingInputData.shootingHandleType == AmmoStats.ShootingHandleType.Raycast)
         {
             RaycastHandle();
@@ -57,6 +58,7 @@ public class ShootingHandler : MonoBehaviour, IPrimaryWeaponStragety
 
                 PoolingManager.Instance.Get("Pool" + shootingInputData.ammoStatsController.ammoStats.name + "Setup");
                 shootingInputData.hitEvent.Notify(hit);
+                shootingInputData.cameraShake.GenerateRecoil(shootingInputData.ammoStatsController.zoomType);
                 //currentHitObject = hit.collider.name;
 
 
@@ -89,6 +91,7 @@ public class ShootingHandler : MonoBehaviour, IPrimaryWeaponStragety
                     raycastHits.Add(hit);
                     PoolingManager.Instance.Get("Pool" + shootingInputData.ammoStatsController.ammoStats.name + "Setup");
                     shootingInputData.hitEvent.Notify(hit);
+                    shootingInputData.cameraShake.GenerateRecoil(shootingInputData.ammoStatsController.zoomType);
                 }
             }
         }
@@ -100,17 +103,20 @@ public class ShootingHandler : MonoBehaviour, IPrimaryWeaponStragety
 
         if (shootingInputData.ammoStatsController.ammoStats.fruitType == AmmoStats.FruitType.Star)
         {
-            //Debug.Log("Shoot");
+            Debug.Log("Shoot");
             Vector3 localDirection = Vector3.forward + shootingInputData.cameraShake.GetCurrentPatternVector();
             direction = shootingInputData.fpsCameraTransform.TransformDirection(localDirection).normalized;
         }
 
         GameObject newBullet = Instantiate(shootingInputData.ammoStatsController.ammoStats.bulletObject, shootingInputData.bulletSpawnPoint.position, Quaternion.identity);
         newBullet.GetComponent<BulletBehaviour>().TriggerBullet(shootingInputData.ammoStatsController.ammoStats.name, shootingInputData.ammoStatsController.force, direction);
+        shootingInputData.cameraShake.GenerateRecoil(shootingInputData.ammoStatsController.zoomType);
     }
 
     public void PlayAimAnimation()
     {
+        //Debug.Log("Handle Right Click");
+
         ShootController shootController = shootingInputData.shootController;
         if (!shootController.rigController) return;
 

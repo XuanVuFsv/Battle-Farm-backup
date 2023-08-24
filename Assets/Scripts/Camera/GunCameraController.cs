@@ -58,8 +58,9 @@ public class GunCameraController : GameObserver
 
     public override void Execute(IGameEvent gEvent, bool value)
     {
-        animator.SetTrigger("Aim");
-        vcamAnimator.SetTrigger("Aim");
+        //Debug.Log(gEvent.GameEventName + " " + value);
+        animator.SetBool("inAim", value);
+        vcamAnimator.SetBool("inAim", value);
         crosshairAnimator.SetBool("inAim", value);
     }
 
