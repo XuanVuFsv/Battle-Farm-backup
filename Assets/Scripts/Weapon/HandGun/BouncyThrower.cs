@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using Cinemachine;
 
 public class BouncyThrower : MonoBehaviour
 {
@@ -16,15 +17,23 @@ public class BouncyThrower : MonoBehaviour
     private LineRenderer LineRenderer;
     [SerializeField]
     private Transform ReleasePosition;
+
     [Header("Grenade Controls")]
     [SerializeField]
     //[Range(1, 100)]
-    private float ThrowStrength = 1000f;
+    private float ThrowStrength = 0f;
+    [SerializeField]
+    private float MinThrowStrength;
+    [SerializeField]
+    private float MaxThrowStrength;
+    [SerializeField]
+    private float ReachMaxThrowStrengthTime = 2f;
     [SerializeField]
     [Range(1, 10)]
     private float ExplosionDelay = 5f;
     [SerializeField]
     private GameObject ExplosionParticleSystem;
+
     [Header("Display Controls")]
     [SerializeField]
     //[Range(10, 100)]
@@ -33,6 +42,9 @@ public class BouncyThrower : MonoBehaviour
     //[Range(0.01f, 0.25f)]
     private float TimeBetweenPoints = 0.1f;
 
+    [Header("Display Controls")]
+    public CinemachineCameraOffset throwerCamera;
+
     private Transform InitialParent;
     private Vector3 InitialLocalPosition;
     private Quaternion InitialRotation;
@@ -40,8 +52,11 @@ public class BouncyThrower : MonoBehaviour
     private bool IsGrenadeThrowAvailable = true;
     private LayerMask GrenadeCollisionMask;
 
+    private float t = 0f;
+
     private void Awake()
     {
+        ThrowStrength = MinThrowStrength;
         InitialParent = Grenade.transform.parent;
         InitialRotation = Grenade.transform.localRotation;
         InitialLocalPosition = Grenade.transform.localPosition;
@@ -66,6 +81,9 @@ public class BouncyThrower : MonoBehaviour
             //    Camera.transform.rotation.eulerAngles.y,
             //    Animator.transform.eulerAngles.z
             //);
+            t += Time.deltaTime;
+            ThrowStrength = Mathf.Lerp(MinThrowStrength, MaxThrowStrength, t/ReachMaxThrowStrengthTime);
+            //throwerCamera.m_Offset.z = Mathf.Lerp(-5, 5, t / ReachMaxThrowStrengthTime);
 
             DrawProjection();
         }
@@ -74,9 +92,11 @@ public class BouncyThrower : MonoBehaviour
             LineRenderer.enabled = false;
         }
 
-        if (Input.GetKeyUp(KeyCode.Q) && IsGrenadeThrowAvailable)
+        if ((Input.GetKeyUp(KeyCode.Q) || t >= ReachMaxThrowStrengthTime) && IsGrenadeThrowAvailable)
         {
             IsGrenadeThrowAvailable = false;
+            t = 0f;
+            //throwerCamera.m_Offset.z = -5;
             ReleaseGrenade();
             Debug.Log("Throw");
             //Animator.SetTrigger("Throw Grenade");
