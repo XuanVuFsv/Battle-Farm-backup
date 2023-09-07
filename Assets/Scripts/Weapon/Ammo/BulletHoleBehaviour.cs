@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class BulletHoleBehaviour : ObjectInPool
 {
+    private void Start()
+    {
+        gameObject.SetActive(false);
+    }
+
     public override void OnUsed(RaycastHit hit)
     {
         gameObject.SetActive(true);
