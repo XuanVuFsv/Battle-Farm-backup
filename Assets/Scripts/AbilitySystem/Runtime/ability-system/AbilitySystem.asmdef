@@ -1,0 +1,17 @@
+{
+    "name": "AbilitySystem",
+    "rootNamespace": "AbilitySystem",
+    "references": [
+        "GUID:576cf9ae163b79e4c8367994e0413b02",
+        "GUID:164a208e5af5ac34a8eecdd7c5fe187e"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
