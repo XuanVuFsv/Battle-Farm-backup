@@ -27,8 +27,8 @@ namespace AbilitySystem.ModifierMagnitude
 
         public override void Initialise(GameplayEffectSpec spec)
         {
-            //spec.Source.AttributeSystem.GetAttributeValue(CaptureAttributeWhich, out var sourceAttributeValue);
-            //spec.SourceCapturedAttribute = sourceAttributeValue;
+            spec.Source.AttributeSystem.GetAttributeValue(CaptureAttributeWhich, out var sourceAttributeValue);
+            spec.SourceCapturedAttribute = sourceAttributeValue;
         }
 
         public override float? CalculateMagnitude(GameplayEffectSpec spec)
@@ -47,12 +47,12 @@ namespace AbilitySystem.ModifierMagnitude
             switch (CaptureAttributeFrom)
             {
                 case ECaptureAttributeFrom.Source:
-                    //spec.Source.AttributeSystem.GetAttributeValue(CaptureAttributeWhich, out var sourceAttributeValue);
-                    //return sourceAttributeValue;
+                    spec.Source.AttributeSystem.GetAttributeValue(CaptureAttributeWhich, out var sourceAttributeValue);
+                    return sourceAttributeValue;
                     return null;
                 case ECaptureAttributeFrom.Target:
-                    //spec.Target.AttributeSystem.GetAttributeValue(CaptureAttributeWhich, out var targetAttributeValue);
-                    //return targetAttributeValue;
+                    spec.Target.AttributeSystem.GetAttributeValue(CaptureAttributeWhich, out var targetAttributeValue);
+                    return targetAttributeValue;
                     return null;
                 default:
                     return null;

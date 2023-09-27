@@ -21,7 +21,7 @@ namespace AbilitySystem.Authoring
         /// </summary>
         /// <param name="owner">Usually the character activating this ability</param>
         /// <returns></returns>
-        //[SerializeField] public GameplayEffectScriptableObject Cost;
+        [SerializeField] public GameplayEffectScriptableObject Cost;
 
         /// <summary>
         /// The GameplayEffect that defines the cooldown associated with this ability

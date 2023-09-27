@@ -10,7 +10,7 @@ namespace AbilitySystem
     {
         public AttributeScriptableObject Attribute;
         public EAttributeModifier ModifierOperator;
-        //public ModifierMagnitudeScriptableObject ModifierMagnitude;
+        public ModifierMagnitudeScriptableObject ModifierMagnitude;
         public float Multiplier;
     }
 

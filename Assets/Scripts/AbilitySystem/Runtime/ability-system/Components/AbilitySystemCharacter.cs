@@ -11,8 +11,8 @@ namespace AbilitySystem
     public class AbilitySystemCharacter : MonoBehaviour
     {
         //[SerializeField]
-        //protected AttributeSystemComponent _attributeSystem;
-        //public AttributeSystemComponent AttributeSystem { get { return _attributeSystem; } set { _attributeSystem = value; } }
+        protected AttributeSystemComponent _attributeSystem;
+        public AttributeSystemComponent AttributeSystem { get { return _attributeSystem; } set { _attributeSystem = value; } }
         public List<GameplayEffectContainer> AppliedGameplayEffects = new List<GameplayEffectContainer>();
         public List<AbstractAbilitySpec> GrantedAbilities = new List<AbstractAbilitySpec>();
         public float Level;
@@ -69,62 +69,62 @@ namespace AbilitySystem
                 Level: level.GetValueOrDefault(1));
         }
 
-        //bool CheckTagRequirementsMet(GameplayEffectSpec geSpec)
-        //{
-        //    /// Build temporary list of all gametags currently applied
-        //    var appliedTags = new List<GameplayTagScriptableObject>();
-        //    for (var i = 0; i < AppliedGameplayEffects.Count; i++)
-        //    {
-        //        appliedTags.AddRange(AppliedGameplayEffects[i].spec.GameplayEffect.gameplayEffectTags.GrantedTags);
-        //    }
+        bool CheckTagRequirementsMet(GameplayEffectSpec geSpec)
+        {
+            /// Build temporary list of all gametags currently applied
+            var appliedTags = new List<GameplayTagScriptableObject>();
+            for (var i = 0; i < AppliedGameplayEffects.Count; i++)
+            {
+                appliedTags.AddRange(AppliedGameplayEffects[i].spec.GameplayEffect.gameplayEffectTags.GrantedTags);
+            }
 
-        //    // Every tag in the ApplicationTagRequirements.RequireTags needs to be in the character tags list
-        //    // In other words, if any tag in ApplicationTagRequirements.RequireTags is not present, requirement is not met
-        //    for (var i = 0; i < geSpec.GameplayEffect.gameplayEffectTags.ApplicationTagRequirements.RequireTags.Length; i++)
-        //    {
-        //        if (!appliedTags.Contains(geSpec.GameplayEffect.gameplayEffectTags.ApplicationTagRequirements.RequireTags[i]))
-        //        {
-        //            return false;
-        //        }
-        //    }
+            // Every tag in the ApplicationTagRequirements.RequireTags needs to be in the character tags list
+            // In other words, if any tag in ApplicationTagRequirements.RequireTags is not present, requirement is not met
+            for (var i = 0; i < geSpec.GameplayEffect.gameplayEffectTags.ApplicationTagRequirements.RequireTags.Length; i++)
+            {
+                if (!appliedTags.Contains(geSpec.GameplayEffect.gameplayEffectTags.ApplicationTagRequirements.RequireTags[i]))
+                {
+                    return false;
+                }
+            }
 
-        //    // No tag in the ApplicationTagRequirements.IgnoreTags must in the character tags list
-        //    // In other words, if any tag in ApplicationTagRequirements.IgnoreTags is present, requirement is not met
-        //    for (var i = 0; i < geSpec.GameplayEffect.gameplayEffectTags.ApplicationTagRequirements.IgnoreTags.Length; i++)
-        //    {
-        //        if (appliedTags.Contains(geSpec.GameplayEffect.gameplayEffectTags.ApplicationTagRequirements.IgnoreTags[i]))
-        //        {
-        //            return false;
-        //        }
-        //    }
+            // No tag in the ApplicationTagRequirements.IgnoreTags must in the character tags list
+            // In other words, if any tag in ApplicationTagRequirements.IgnoreTags is present, requirement is not met
+            for (var i = 0; i < geSpec.GameplayEffect.gameplayEffectTags.ApplicationTagRequirements.IgnoreTags.Length; i++)
+            {
+                if (appliedTags.Contains(geSpec.GameplayEffect.gameplayEffectTags.ApplicationTagRequirements.IgnoreTags[i]))
+                {
+                    return false;
+                }
+            }
 
-        //    return true;
-        //}
+            return true;
+        }
 
         void ApplyInstantGameplayEffect(GameplayEffectSpec spec)
         {
-            //for (var i = 0; i < spec.GameplayEffect.gameplayEffect.Modifiers.Length; i++)
-            //{
-            //    var modifier = spec.GameplayEffect.gameplayEffect.Modifiers[i];
-            //    var magnitude = 0;
-            //    //var magnitude = (modifier.ModifierMagnitude.CalculateMagnitude(spec) * modifier.Multiplier).GetValueOrDefault();
-            //    var attribute = modifier.Attribute;
-            //    this.AttributeSystem.GetAttributeValue(attribute, out var attributeValue);
+            for (var i = 0; i < spec.GameplayEffect.gameplayEffect.Modifiers.Length; i++)
+            {
+                var modifier = spec.GameplayEffect.gameplayEffect.Modifiers[i];
+                var magnitude = 0;
+                //var magnitude = (modifier.ModifierMagnitude.CalculateMagnitude(spec) * modifier.Multiplier).GetValueOrDefault();
+                var attribute = modifier.Attribute;
+                this.AttributeSystem.GetAttributeValue(attribute, out var attributeValue);
 
-            //    switch (modifier.ModifierOperator)
-            //    {
-            //        case EAttributeModifier.Add:
-            //            attributeValue.BaseValue += magnitude;
-            //            break;
-            //        case EAttributeModifier.Multiply:
-            //            attributeValue.BaseValue *= magnitude;
-            //            break;
-            //        case EAttributeModifier.Override:
-            //            attributeValue.BaseValue = magnitude;
-            //            break;
-            //    }
-            //    this.AttributeSystem.SetAttributeBaseValue(attribute, attributeValue.BaseValue);
-            //}
+                switch (modifier.ModifierOperator)
+                {
+                    case EAttributeModifier.Add:
+                        attributeValue.BaseValue += magnitude;
+                        break;
+                    case EAttributeModifier.Multiply:
+                        attributeValue.BaseValue *= magnitude;
+                        break;
+                    case EAttributeModifier.Override:
+                        attributeValue.BaseValue = magnitude;
+                        break;
+                }
+                this.AttributeSystem.SetAttributeBaseValue(attribute, attributeValue.BaseValue);
+            }
         }
         void ApplyDurationalGameplayEffect(GameplayEffectSpec spec)
         {
@@ -157,15 +157,15 @@ namespace AbilitySystem
             // Set Current Value to Base Value (default position if there are no GE affecting that atribute)
 
 
-            //for (var i = 0; i < this.AppliedGameplayEffects.Count; i++)
-            //{
-            //    var modifiers = this.AppliedGameplayEffects[i].modifiers;
-            //    for (var m = 0; m < modifiers.Length; m++)
-            //    {
-            //        var modifier = modifiers[m];
-            //        AttributeSystem.UpdateAttributeModifiers(modifier.Attribute, modifier.Modifier, out _);
-            //    }
-            //}
+            for (var i = 0; i < this.AppliedGameplayEffects.Count; i++)
+            {
+                var modifiers = this.AppliedGameplayEffects[i].modifiers;
+                for (var m = 0; m < modifiers.Length; m++)
+                {
+                    var modifier = modifiers[m];
+                    AttributeSystem.UpdateAttributeModifiers(modifier.Attribute, modifier.Modifier, out _);
+                }
+            }
         }
 
         void TickGameplayEffects()

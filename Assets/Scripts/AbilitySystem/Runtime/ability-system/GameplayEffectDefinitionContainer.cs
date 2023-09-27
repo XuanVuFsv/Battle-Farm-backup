@@ -27,7 +27,7 @@ namespace AbilitySystem
         /// <summary>
         /// Other GE to apply to the source ability system, based on presence of tags on source
         /// </summary>
-        //public ConditionalGameplayEffectContainer[] ConditionalGameplayEffects;
+        public ConditionalGameplayEffectContainer[] ConditionalGameplayEffects;
     }
 
 }
