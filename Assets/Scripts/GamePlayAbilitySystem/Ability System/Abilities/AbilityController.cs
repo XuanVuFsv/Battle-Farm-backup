@@ -8,8 +8,8 @@ using UnityEngine.UI;
 public class AbilityController : MonoBehaviour
 {
     public AbstractAbilityScriptableObject Abilities;
-
     public AbstractAbilityScriptableObject InitialisationAbilities;
+
     private AbilitySystemCharacter abilitySystemCharacter;
 
     private AbstractAbilitySpec abilitySpecs;

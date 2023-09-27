@@ -47,7 +47,7 @@ using UnityEngine.Events;
 
 public abstract class GameObserver : MonoBehaviour, IGameObserver
 {
-    [SerializeField] protected Dictionary<string, GameEvent> gameEvents = new Dictionary<string, GameEvent>();
+    protected Dictionary<string, GameEvent> gameEvents = new Dictionary<string, GameEvent>();
     [SerializeField] protected UnityEvent unityEvent;
 
     public GameEvent GetGameEvent(string gEventName)
@@ -110,9 +110,13 @@ public abstract class GameObserver : MonoBehaviour, IGameObserver
         //Debug.Log($"Execute by {this} in base class with value: {point} {normal}");
     }
 
+    //public virtual void Execute<IGameEvent, T>(IGameEvent gEvent, T value)
+    //{
+    //    //Debug.Log($"Execute by {this} in base class with value: {point} {normal}");
+    //}
+
     public virtual void RaiseUnityEvent()
     {
         unityEvent.Invoke();
     }
 }
-
