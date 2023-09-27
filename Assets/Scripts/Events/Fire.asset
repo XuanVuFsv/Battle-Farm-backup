@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea950b9420888624d85de544f94ef5cf, type: 3}
   m_Name: Fire
   m_EditorClassIdentifier: 
-  gameEventName: Fire
+  _gameEventName: Fire

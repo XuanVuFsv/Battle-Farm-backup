@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 [CreateAssetMenu(menuName = "GameEvent", fileName = "New Game Event")]
 public class GameEvent : ScriptableObject, IGameEvent
@@ -83,13 +84,4 @@ public class GameEvent : ScriptableObject, IGameEvent
             observer.Execute(this, point, normal);
         }
     }
-
-    //public void Notify<T>(T hit)
-    //{
-    //    foreach (var observer in gameObservers)
-    //    {
-    //        //Debug.Log($"Execute {this} {observer} in {gameObservers.Count}");
-    //        observer.Execute(this, hit);
-    //    }
-    //}
 }

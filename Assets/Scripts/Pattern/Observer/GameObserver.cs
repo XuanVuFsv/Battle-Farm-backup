@@ -110,11 +110,6 @@ public abstract class GameObserver : MonoBehaviour, IGameObserver
         //Debug.Log($"Execute by {this} in base class with value: {point} {normal}");
     }
 
-    //public virtual void Execute<IGameEvent, T>(IGameEvent gEvent, T value)
-    //{
-    //    //Debug.Log($"Execute by {this} in base class with value: {point} {normal}");
-    //}
-
     public virtual void RaiseUnityEvent()
     {
         unityEvent.Invoke();
