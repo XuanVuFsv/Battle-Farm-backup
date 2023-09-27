@@ -125,29 +125,29 @@ namespace AbilitySystem.Authoring
         /// Checks whether the activating character has enough resources to activate this ability
         /// </summary>
         /// <returns></returns>
-        //public virtual bool CheckCost()
-        //{
-        //    if (this.Ability.Cost == null) return true;
-        //    var geSpec = this.Owner.MakeOutgoingSpec(this.Ability.Cost, this.Level);
-        //    // If this isn't an instant cost, then assume it passes cooldown check
-        //    if (geSpec.GameplayEffect.gameplayEffect.DurationPolicy != EDurationPolicy.Instant) return true;
+        public virtual bool CheckCost()
+        {
+            if (this.Ability.Cost == null) return true;
+            var geSpec = this.Owner.MakeOutgoingSpec(this.Ability.Cost, this.Level);
+            // If this isn't an instant cost, then assume it passes cooldown check
+            if (geSpec.GameplayEffect.gameplayEffect.DurationPolicy != EDurationPolicy.Instant) return true;
 
-        //    for (var i = 0; i < geSpec.GameplayEffect.gameplayEffect.Modifiers.Length; i++)
-        //    {
-        //        var modifier = geSpec.GameplayEffect.gameplayEffect.Modifiers[i];
+            for (var i = 0; i < geSpec.GameplayEffect.gameplayEffect.Modifiers.Length; i++)
+            {
+                var modifier = geSpec.GameplayEffect.gameplayEffect.Modifiers[i];
 
-        //        // Only worry about additive.  Anything else passes.
-        //        if (modifier.ModifierOperator != EAttributeModifier.Add) continue;
-        //        var costValue = (modifier.ModifierMagnitude.CalculateMagnitude(geSpec) * modifier.Multiplier).GetValueOrDefault();
+                // Only worry about additive.  Anything else passes.
+                if (modifier.ModifierOperator != EAttributeModifier.Add) continue;
+                var costValue = (modifier.ModifierMagnitude.CalculateMagnitude(geSpec) * modifier.Multiplier).GetValueOrDefault();
 
-        //        this.Owner.AttributeSystem.GetAttributeValue(modifier.Attribute, out var attributeValue);
+                this.Owner.AttributeSystem.GetAttributeValue(modifier.Attribute, out var attributeValue);
 
-        //        // The total attribute after accounting for cost should be >= 0 for the cost check to succeed
-        //        if (attributeValue.CurrentValue + costValue < 0) return false;
+                // The total attribute after accounting for cost should be >= 0 for the cost check to succeed
+                if (attributeValue.CurrentValue + costValue < 0) return false;
 
-        //    }
-        //    return true;
-        //}
+            }
+            return true;
+        }
         #endregion
 
         /// <summary>
@@ -156,32 +156,32 @@ namespace AbilitySystem.Authoring
         /// <param name="asc">Ability System Character</param>
         /// <param name="tags">List of tags to check</param>
         /// <returns>True, if the Ability System Character has all tags</returns>
-        //protected virtual bool AscHasAllTags(AbilitySystemCharacter asc, GameplayTagScriptableObject[] tags)
-        //{
-        //    // If the input ASC is not valid, assume check passed
-        //    if (!asc) return true;
+        protected virtual bool AscHasAllTags(AbilitySystemCharacter asc, GameplayTagScriptableObject[] tags)
+        {
+            // If the input ASC is not valid, assume check passed
+            if (!asc) return true;
 
-        //    for (var iAbilityTag = 0; iAbilityTag < tags.Length; iAbilityTag++)
-        //    {
-        //        var abilityTag = tags[iAbilityTag];
+            for (var iAbilityTag = 0; iAbilityTag < tags.Length; iAbilityTag++)
+            {
+                var abilityTag = tags[iAbilityTag];
 
-        //        bool requirementPassed = false;
-        //        for (var iAsc = 0; iAsc < asc.AppliedGameplayEffects.Count; iAsc++)
-        //        {
-        //            GameplayTagScriptableObject[] ascGrantedTags = asc.AppliedGameplayEffects[iAsc].spec.GameplayEffect.gameplayEffectTags.GrantedTags;
-        //            for (var iAscTag = 0; iAscTag < ascGrantedTags.Length; iAscTag++)
-        //            {
-        //                if (ascGrantedTags[iAscTag] == abilityTag)
-        //                {
-        //                    requirementPassed = true;
-        //                }
-        //            }
-        //        }
-        //        // If any ability tag wasn't found, requirements failed
-        //        if (!requirementPassed) return false;
-        //    }
-        //    return true;
-        //}
+                bool requirementPassed = false;
+                for (var iAsc = 0; iAsc < asc.AppliedGameplayEffects.Count; iAsc++)
+                {
+                    GameplayTagScriptableObject[] ascGrantedTags = asc.AppliedGameplayEffects[iAsc].spec.GameplayEffect.gameplayEffectTags.GrantedTags;
+                    for (var iAscTag = 0; iAscTag < ascGrantedTags.Length; iAscTag++)
+                    {
+                        if (ascGrantedTags[iAscTag] == abilityTag)
+                        {
+                            requirementPassed = true;
+                        }
+                    }
+                }
+                // If any ability tag wasn't found, requirements failed
+                if (!requirementPassed) return false;
+            }
+            return true;
+        }
 
         /// <summary>
         /// Checks if an Ability System Character has none of the listed tags
@@ -189,31 +189,31 @@ namespace AbilitySystem.Authoring
         /// <param name="asc">Ability System Character</param>
         /// <param name="tags">List of tags to check</param>
         /// <returns>True, if the Ability System Character has none of the tags</returns>
-        //protected virtual bool AscHasNoneTags(AbilitySystemCharacter asc, GameplayTagScriptableObject[] tags)
-        //{
-        //    // If the input ASC is not valid, assume check passed
-        //    if (!asc) return true;
+        protected virtual bool AscHasNoneTags(AbilitySystemCharacter asc, GameplayTagScriptableObject[] tags)
+        {
+            // If the input ASC is not valid, assume check passed
+            if (!asc) return true;
 
-        //    for (var iAbilityTag = 0; iAbilityTag < tags.Length; iAbilityTag++)
-        //    {
-        //        var abilityTag = tags[iAbilityTag];
+            for (var iAbilityTag = 0; iAbilityTag < tags.Length; iAbilityTag++)
+            {
+                var abilityTag = tags[iAbilityTag];
 
-        //        bool requirementPassed = true;
-        //        for (var iAsc = 0; iAsc < asc.AppliedGameplayEffects.Count; iAsc++)
-        //        {
-        //            GameplayTagScriptableObject[] ascGrantedTags = asc.AppliedGameplayEffects[iAsc].spec.GameplayEffect.gameplayEffectTags.GrantedTags;
-        //            for (var iAscTag = 0; iAscTag < ascGrantedTags.Length; iAscTag++)
-        //            {
-        //                if (ascGrantedTags[iAscTag] == abilityTag)
-        //                {
-        //                    requirementPassed = false;
-        //                }
-        //            }
-        //        }
-        //        // If any ability tag wasn't found, requirements failed
-        //        if (!requirementPassed) return false;
-        //    }
-        //    return true;
-        //}
+                bool requirementPassed = true;
+                for (var iAsc = 0; iAsc < asc.AppliedGameplayEffects.Count; iAsc++)
+                {
+                    GameplayTagScriptableObject[] ascGrantedTags = asc.AppliedGameplayEffects[iAsc].spec.GameplayEffect.gameplayEffectTags.GrantedTags;
+                    for (var iAscTag = 0; iAscTag < ascGrantedTags.Length; iAscTag++)
+                    {
+                        if (ascGrantedTags[iAscTag] == abilityTag)
+                        {
+                            requirementPassed = false;
+                        }
+                    }
+                }
+                // If any ability tag wasn't found, requirements failed
+                if (!requirementPassed) return false;
+            }
+            return true;
+        }
     }
 }
