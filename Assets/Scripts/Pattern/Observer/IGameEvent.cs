@@ -1,5 +1,5 @@
 using System.Collections;
-
+using System;
 public interface IGameEvent
 {
     string GameEventName
@@ -16,6 +16,4 @@ public interface IGameEvent
 
     // Notify all observers about an event.
     void Notify();
-
-    //void Notify<T>(T value);
 }
