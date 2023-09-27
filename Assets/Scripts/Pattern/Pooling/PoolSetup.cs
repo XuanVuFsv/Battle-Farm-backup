@@ -55,7 +55,8 @@ public class PoolSetup : GameObserver, IPoolSetup
     {
         foreach (Transform poolObject in transform)
         {
-            poolObject.GetComponent<BulletHoleBehaviour>().Dispose();
+            poolObject.GetComponent<ObjectInPool>().Dispose();
+            //poolObject.GetComponent<BulletHoleBehaviour>().Dispose();
         }
         bulletHolePool.Dispose();
     }

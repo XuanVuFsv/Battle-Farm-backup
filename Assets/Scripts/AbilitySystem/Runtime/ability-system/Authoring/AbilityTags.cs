@@ -14,18 +14,27 @@ namespace AbilitySystem.Authoring
         [SerializeField] public GameplayTagScriptableObject AssetTag;
 
         /// <summary>
-        /// Active Gameplay Abilities (on the same character) that have these tags will be cancelled
+        /// Active Gameplay Abilities (on the same character) that have these tags will be cancelled.
         /// </summary>
+        /// <remarks>
+        /// Example: a player's aimming and choose direction when throwing a grenade. If that player has stun Ability Tag, cancel.
+        /// </remarks>
         [SerializeField] public GameplayTagScriptableObject[] CancelAbilitiesWithTags;
 
         /// <summary>
         /// Gameplay Abilities that have these tags will be blocked from activating on the same character
         /// </summary>
+        /// <remarks>
+        /// Example: a player try to press button to throw a grenade. If that player has stun Ability Tag, block.
+        /// </remarks>
         [SerializeField] public GameplayTagScriptableObject[] BlockAbilitiesWithTags;
 
         /// <summary>
         /// These tags are granted to the character while the ability is active
         /// </summary>
+        /// <remarks>
+        /// Example: a player has a shield can block all hostile projectiles that hit it, that player also has can't take damage Ability Tag. 
+        /// </remarks>
         [SerializeField] public GameplayTagScriptableObject[] ActivationOwnedTags;
 
         /// <summary>

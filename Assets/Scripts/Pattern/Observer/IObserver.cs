@@ -10,5 +10,6 @@ public interface IGameObserver
     void Execute(IGameEvent gameEvent, object obj);
     void Execute(IGameEvent gameEvent, RaycastHit hit);
     void Execute(IGameEvent gameEvent, Vector3 point, Vector3 normal);
+    //void Execute<IGameEvent, T>(IGameEvent gameEvent, T value);
     void RaiseUnityEvent();
 }

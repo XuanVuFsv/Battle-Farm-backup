@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
-/*
-  This class will:
-- Excute and assign Recoil Pattern for different weapons
-- Play Recoil animation in rigController Animator
-- Modify recoil speed animation in rigController Animator
-- GenerateImpulse cameraShake (main Camera) and gunCameraShake (gun Camera)
-- Listen event to apply cameraShake.m_ImpulseDefinition.m_AmplitudeGain, multiplierRecoil, multiplierRecoilOnAim
-- Assign playerCamera and rigController Animator
-*/
+/// <summary>
+/// This class will:
+/// <para>- Excute and assign Recoil Pattern for different weapons</para>
+/// <para>- Play Recoil animation in rigController Animator</para>
+/// <para>- Modify recoil speed animation in rigController Animator</para>
+/// <para>- GenerateImpulse cameraShake (main Camera) and gunCameraShake(gun Camera)</para>
+/// <para>- Listen event to apply cameraShake.m_ImpulseDefinition.m_AmplitudeGain, multiplierRecoil, multiplierRecoilOnAim</para>
+/// <para>- Assign playerCamera and rigController Animator</para>
+/// </summary>
 
 public class CameraShake : GameObserver
 {
@@ -44,11 +44,11 @@ public class CameraShake : GameObserver
     [SerializeField]
     WeaponPickup weaponPickup;
 
-    [Tooltip("Help developer define different recoil value for different weapon with the simple value (Suggestion: Use int value)")]
+    [Tooltip("It Help developer define different recoil value for different weapon with the simple value (Suggestion: Use int value)")]
     [SerializeField]
     float multiplierRecoil = 1;
 
-    [Tooltip("Scale multiplierRecoil when Aiming")]
+    [Tooltip("To scale multiplierRecoil when Aiming")]
     [SerializeField]
     float multiplierRecoilOnAim = 1;
 

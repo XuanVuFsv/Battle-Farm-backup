@@ -94,6 +94,9 @@ public class RaycastWeapon : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Run this method to shoot and select what type of bullet <see cref="AmmoStats.ShootingHandleType"/> and how to bullet interact to other objects
+    /// </summary>
     public void HandleLeftMouseClick()
     {
         if (muzzleFlash) muzzleFlash.Emit(1);
@@ -126,6 +129,10 @@ public class RaycastWeapon : MonoBehaviour
         else ShootingHandle();
     }
 
+    /// <summary>
+    /// Run this method to aim. An ammo type can aim or not and how a gun aim with different ammo will depend on their ammo type. Check this:
+    /// <see cref="AmmoStats.FruitType"></see>
+    /// </summary>
     public void HandleRightMouseClick()
     {
         weaponHandler.HandleRightMouseClick();

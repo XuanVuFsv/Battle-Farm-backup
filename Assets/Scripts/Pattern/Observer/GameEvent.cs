@@ -5,17 +5,17 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "GameEvent", fileName = "New Game Event")]
 public class GameEvent : ScriptableObject, IGameEvent
 {
-    public string gameEventName;
+    [SerializeField]
+    private string _gameEventName;
     public string GameEventName
     {
-        get => gameEventName;
-        set => gameEventName = value;
+        get => _gameEventName;
+        set => _gameEventName = value;
     }
 
     // List of subscribers. In real life, the list of subscribers can be
     // stored more comprehensively (categorized by event type, etc.).
     private HashSet<IGameObserver> gameObservers = new HashSet<IGameObserver>();
-
     // The subscription management methods.
     public void Subscribe(IGameObserver observer)
     {
@@ -83,4 +83,13 @@ public class GameEvent : ScriptableObject, IGameEvent
             observer.Execute(this, point, normal);
         }
     }
+
+    //public void Notify<T>(T hit)
+    //{
+    //    foreach (var observer in gameObservers)
+    //    {
+    //        //Debug.Log($"Execute {this} {observer} in {gameObservers.Count}");
+    //        observer.Execute(this, hit);
+    //    }
+    //}
 }
