@@ -1,3 +1,2 @@
 # Auto detect text files and perform LF normalization
 * text=auto
-AssetsScenesAssault_Rifle_01_DemoLightingData.asset filter=lfs diff=lfs merge=lfs -text
