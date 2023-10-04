@@ -231,7 +231,6 @@ public class RaycastWeapon : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (Application.isEditor) return;
         Gizmos.color = Color.green;
         Vector3 direction = fpsCameraTransform.forward;
 
