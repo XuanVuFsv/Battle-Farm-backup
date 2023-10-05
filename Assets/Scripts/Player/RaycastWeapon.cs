@@ -64,11 +64,11 @@ public class RaycastWeapon : MonoBehaviour
 
     public async UniTaskVoid SetAsInputData()
     {
-        //Debug.Log(gameObject.name);
-        //Debug.Log("Wait ammoStatController instance created");
+        //MyDebug.Instance.Log(gameObject.name);
+        //MyDebug.Instance.Log("Wait ammoStatController instance created");
         await UniTask.WaitUntil(() => ammoStatsController.ammoStats != null);
         //if (ammoStatsController == null) await UniTask.Yield();
-        //Debug.Log(ammoStatsController);
+        //MyDebug.Instance.Log(ammoStatsController);
         ShootingInputData shootingInputData = new ShootingInputData(shootController, ammoStatsController.ammoStats.shootingHandleType, ammoStatsController, raycastOrigin, fpsCameraTransform, hitEvent, cameraShake, bulletSpawnPoint, layerMask);
         weaponHandler.SetInputData(shootingInputData);
     }
@@ -80,7 +80,7 @@ public class RaycastWeapon : MonoBehaviour
         if (GetComponent<ShootingHandler>())
         {
             weaponHandler = GetComponent<ShootingHandler>();
-            //Debug.Log(ammoStatsController);
+            //MyDebug.Instance.Log(ammoStatsController);
             var _setInput = SetAsInputData();
         }
         else if (GetComponent<ActionHandler>())
@@ -124,7 +124,7 @@ public class RaycastWeapon : MonoBehaviour
         if (useDifferentClassForHandleShooting)
         {
             weaponHandler.HandleLeftMouseClick();
-            //Debug.Log("Handle Left Mouse Click");
+            //MyDebug.Instance.Log("Handle Left Mouse Click");
         }
         else ShootingHandle();
     }
@@ -210,7 +210,7 @@ public class RaycastWeapon : MonoBehaviour
 
         if (ammoStatsController.ammoStats.fruitType == AmmoStats.FruitType.Star)
         {
-            //Debug.Log("Shoot");
+            //MyDebug.Instance.Log("Shoot");
             Vector3 localDirection = Vector3.forward + cameraShake.GetCurrentPatternVector();
             direction = fpsCameraTransform.TransformDirection(localDirection).normalized;
         }

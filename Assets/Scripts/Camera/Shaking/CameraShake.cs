@@ -113,7 +113,7 @@ public class CameraShake : GameObserver
         cameraShake.GenerateImpulse(cameraShake.transform.forward);
         gunCameraShake.GenerateImpulse(gunCameraShake.transform.forward);
         rigController.Play("Recoil");
-        //Debug.Log(transform.forward);
+        //MyDebug.Instance.Log(transform.forward);
 
         //random index use for sniper when scope turn off
         if (zoomType == AmmoStats.ZoomType.HasScope)
@@ -138,13 +138,13 @@ public class CameraShake : GameObserver
     #region Define method for Observer pattern
     public override void Execute(IGameEvent gameEvent, int value)
     {
-        //Debug.Log($"Run {gameEvent} from children {this}");
+        //MyDebug.Instance.Log($"Run {gameEvent} from children {this}");
         cameraShake.m_ImpulseDefinition.m_AmplitudeGain = value;
     }
 
     public override void Execute(IGameEvent gameEvent, float value)
     {
-        //Debug.Log($"Run {gameEvent} from children {this}");
+        //MyDebug.Instance.Log($"Run {gameEvent} from children {this}");
         //multiplierRecoilOnAim = value;
     }
 
@@ -157,7 +157,7 @@ public class CameraShake : GameObserver
 
     public override void Execute(IGameEvent gameEvent, bool inAim)
     {
-        //Debug.Log($"Run {gameEvent} from children {this}");
+        //MyDebug.Instance.Log($"Run {gameEvent} from children {this}");
         if (inAim)
         {
             multiplierRecoil = multiplierProperties.multiplierRecoilOnAim;

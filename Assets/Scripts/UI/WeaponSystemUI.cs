@@ -65,7 +65,7 @@ public class WeaponSystemUI : MonoBehaviour
 
     //public override void Execute(IGameEvent gEvent, DataGroup dataGroup)
     //{
-    //    Debug.Log($"Update {dataGroup} ammo");
+    //    MyDebug.Instance.Log($"Update {dataGroup} ammo");
     //    UpdateAmmo(dataGroup.GetDataGroup());
     //}
 

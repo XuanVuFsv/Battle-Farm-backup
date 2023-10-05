@@ -20,7 +20,7 @@
 //    public virtual void Awake()
 //    {
 //        gameEvent?.Subscribe(this);
-//        Debug.Log("Game Observer Awake");
+//        MyDebug.Instance.Log("Game Observer Awake");
 //    }
 
 //    public virtual void OnDestroy()
@@ -30,7 +30,7 @@
 
 //    public virtual void Execute(IGameEvent gameEvent)
 //    {
-//        Debug.Log($"Execute {this} in base class");
+//        MyDebug.Instance.Log($"Execute {this} in base class");
 //    }
 
 //    public virtual void RaiseUnityEvent()
@@ -62,7 +62,7 @@ public abstract class GameObserver : MonoBehaviour, IGameObserver
             gameEvents.Add(gEvent.GameEventName, gEvent);
             gEvent.Subscribe(this);
         }
-        else Debug.Log($"{gEvent} existed");
+        else MyDebug.Instance.Log($"{gEvent} existed");
     }
 
     public void RemoveGameEventFromObserver(GameEvent gEvent)
@@ -72,42 +72,42 @@ public abstract class GameObserver : MonoBehaviour, IGameObserver
             gameEvents.Remove(gEvent.GameEventName);
             gEvent.UnSubscribe(this);
         }
-        //else Debug.Log($"{gEvent} not existed");
+        //else MyDebug.Instance.Log($"{gEvent} not existed");
     }
 
     public virtual void Execute(IGameEvent gEvent)
     {
-        //Debug.Log($"Execute {this} in base class");
+        //MyDebug.Instance.Log($"Execute {this} in base class");
     }
 
     public virtual void Execute(IGameEvent gEvent, int val)
     {
-        //Debug.Log($"Execute by {this} in base class with value: {val}");
+        //MyDebug.Instance.Log($"Execute by {this} in base class with value: {val}");
     }
 
     public virtual void Execute(IGameEvent gEvent, float val)
     {
-        //Debug.Log($"Execute by {this} in base class with value: {val}");
+        //MyDebug.Instance.Log($"Execute by {this} in base class with value: {val}");
     }
 
     public virtual void Execute(IGameEvent gEvent, bool val)
     {
-        //Debug.Log($"Execute by {this} in base class with value: {val}");
+        //MyDebug.Instance.Log($"Execute by {this} in base class with value: {val}");
     }
 
     public virtual void Execute(IGameEvent gEvent, object obj)
     {
-        //Debug.Log($"Execute by {this} in base class with value: {point} {normal}");
+        //MyDebug.Instance.Log($"Execute by {this} in base class with value: {point} {normal}");
     }
 
     public virtual void Execute(IGameEvent gEvent, RaycastHit hit)
     {
-        //Debug.Log($"Execute by {this} in base class with value: {hit}");
+        //MyDebug.Instance.Log($"Execute by {this} in base class with value: {hit}");
     }
 
     public virtual void Execute(IGameEvent gEvent, Vector3 point, Vector3 normal)
     {
-        //Debug.Log($"Execute by {this} in base class with value: {point} {normal}");
+        //MyDebug.Instance.Log($"Execute by {this} in base class with value: {point} {normal}");
     }
 
     public virtual void RaiseUnityEvent()

@@ -244,7 +244,7 @@ public class ActiveWeapon : MonoBehaviour
 
         if (shootController.isReloading)
         {
-            Debug.Log("Switch");
+            MyDebug.Instance.Log("Switch");
             shootController.AttachMagazine();
             shootController.StopAllCoroutines();
             shootController.StopCoroutine("Reload");
@@ -389,7 +389,7 @@ public class ActiveWeapon : MonoBehaviour
         equippedWeaponParent[attachedWeaponSlotIndex] = attachedWeapon.transform.parent;
 
         StartCoroutine(SetWeaponParent(attachedWeapon, attachedWeaponParent));
-        //Debug.Log("OnStart " + attachedWeapon.transform.parent.name);
+        //MyDebug.Instance.Log("OnStart " + attachedWeapon.transform.parent.name);
         attachedWeapon.GetComponent<WeaponStatsController>().OnStart();
     }
 
