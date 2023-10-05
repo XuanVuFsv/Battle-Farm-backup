@@ -50,6 +50,7 @@ public class ShootingHandler : MonoBehaviour, IPrimaryWeaponStragety
     {
         if (shootingInputData.ammoStatsController.bulletCount == 1)
         {
+            WallBehaviour wall;
             if (Physics.Raycast(shootingInputData.raycastOrigin.position, shootingInputData.fpsCameraTransform.forward, out hit, shootingInputData.ammoStatsController.range, shootingInputData.layerMask))
             {
                 //hitEffectPrefab.transform.position = hit.point;
@@ -60,7 +61,11 @@ public class ShootingHandler : MonoBehaviour, IPrimaryWeaponStragety
                 shootingInputData.hitEvent.Notify(hit);
                 shootingInputData.cameraShake.GenerateRecoil(shootingInputData.ammoStatsController.zoomType);
                 //currentHitObject = hit.collider.name;
-
+                wall = hit.transform.GetComponent<WallBehaviour>();
+                if (wall != null)
+                {
+                    WallSpawner.Instance.DestroyWall(wall.index);
+                }
 
                 //Tracer here
                 //Damage Handle here
@@ -81,6 +86,8 @@ public class ShootingHandler : MonoBehaviour, IPrimaryWeaponStragety
             List<RaycastHit> raycastHits = new List<RaycastHit>();
 
             //int i = 0;
+            bool destroyedObstacle = false;
+            WallBehaviour wall;
             foreach (Vector3 pattern in shootingInputData.ammoStatsController.ammoStats.bulletDirectionPattern)
             {
                 Vector3 localDirection = Vector3.forward + pattern;
@@ -92,6 +99,12 @@ public class ShootingHandler : MonoBehaviour, IPrimaryWeaponStragety
                     PoolingManager.Instance.Get("Pool" + shootingInputData.ammoStatsController.ammoStats.name + "Setup");
                     shootingInputData.hitEvent.Notify(hit);
                     shootingInputData.cameraShake.GenerateRecoil(shootingInputData.ammoStatsController.zoomType);
+                    wall = hit.transform.GetComponent<WallBehaviour>();
+                    if (!destroyedObstacle && wall != null)
+                    {
+                        WallSpawner.Instance.DestroyWall(wall.index);
+                        destroyedObstacle = true;
+                    }
                 }
             }
         }

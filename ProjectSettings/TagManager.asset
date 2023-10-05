@@ -11,6 +11,7 @@ TagManager:
   - Metal
   - Wall
   - Bullet
+  - Destroyable
   layers:
   - Default
   - TransparentFX
