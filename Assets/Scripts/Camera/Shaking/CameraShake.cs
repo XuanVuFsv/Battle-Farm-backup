@@ -36,6 +36,7 @@ public class CameraShake : GameObserver
     public Animator rigController;
     public List<Vector2> recoilPattern;
     public Transform gunCamera;
+    private Transform cameraShakeTransform;
 
     [SerializeField]
     GameEvent aimEvent, pickAmmoEvent;
@@ -71,6 +72,7 @@ public class CameraShake : GameObserver
         //cameraShake = GetComponent<CinemachineImpulseSource>();
         playerAiming = playerCamera.GetCinemachineComponent<CinemachinePOV>();
         weaponPickup = GetComponent<WeaponPickup>();
+        cameraShakeTransform = cameraShake.transform;
     }
 
     // Update is called once per frame
@@ -110,8 +112,8 @@ public class CameraShake : GameObserver
     {
         time = duration;
 
-        cameraShake.GenerateImpulse(cameraShake.transform.forward);
-        gunCameraShake.GenerateImpulse(gunCameraShake.transform.forward);
+        cameraShake.GenerateImpulse(Vector3.forward);
+        gunCameraShake.GenerateImpulse(Vector3.forward);
         rigController.Play("Recoil");
         //Debug.Log(transform.forward);
 

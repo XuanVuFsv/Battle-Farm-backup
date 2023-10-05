@@ -2,17 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MyDebug : MonoBehaviour
+public class MyDebug: Singleton<MyDebug>
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public bool isActive = true;
 
-    // Update is called once per frame
-    void Update()
+    public void Log(object message, Object context)
     {
-        
+        if (!isActive) return;
+        Debug.Log(message, context);
+    }
+    
+    public void Log(object message)
+    {
+        if (!isActive) return;
+        Debug.Log(message);
     }
 }
