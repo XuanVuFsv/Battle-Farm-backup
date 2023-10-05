@@ -40,9 +40,9 @@ MonoBehaviour:
   - {x: 0, y: 1}
   artwork: {fileID: 0}
   bulletTracer: {fileID: 0}
-  bulletObject: {fileID: 6065242573691159738, guid: 2316cdd84f8f67045ac5ffbab410c4da, type: 3}
+  bulletObject: {fileID: 2966576973696581955, guid: 7cced171216e01a48a0042b27bfc9ec9, type: 3}
   hitEffectPrefab: {fileID: 0}
-  shootingHandleType: 1
+  shootingHandleType: 0
   bulletCount: 1
   bulletDirectionPattern:
   - {x: 0, y: 0, z: 0}

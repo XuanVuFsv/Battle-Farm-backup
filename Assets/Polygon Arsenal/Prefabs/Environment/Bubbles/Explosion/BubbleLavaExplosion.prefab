@@ -19642,7 +19642,7 @@ GameObject:
   - component: {fileID: 7019073251863791587}
   - component: {fileID: 3552864698917448306}
   - component: {fileID: 1026575641380669856}
-  - component: {fileID: 3045681860457642739}
+  - component: {fileID: -588361532698569493}
   m_Layer: 0
   m_Name: BubbleLavaExplosion
   m_TagString: Untagged
@@ -24659,7 +24659,7 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &3045681860457642739
+--- !u!114 &-588361532698569493
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

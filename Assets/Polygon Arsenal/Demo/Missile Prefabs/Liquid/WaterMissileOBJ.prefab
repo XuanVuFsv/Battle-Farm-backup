@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 114228458808666186}
   - component: {fileID: 54969070811294218}
   - component: {fileID: 135507269612158032}
-  - component: {fileID: 4942742376255487865}
   m_Layer: 0
   m_Name: WaterMissileOBJ
   m_TagString: Untagged
@@ -30,7 +29,6 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -47,9 +45,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c736e84d8f869d245b3d1dba36061db9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  impactParticle: {fileID: 1774613731674940, guid: 4c962a83fd882d3479650db37649b620, type: 3}
-  projectileParticle: {fileID: 1493658264490122, guid: 42bf9ea7ef7afc04c8b680b9a7a75039, type: 3}
-  muzzleParticle: {fileID: 1358292755013366, guid: 177817dfb8f1acc4f984b6817f56df3f, type: 3}
+  impactParticle: {fileID: 1774613731674940, guid: 4c962a83fd882d3479650db37649b620,
+    type: 3}
+  projectileParticle: {fileID: 1493658264490122, guid: 42bf9ea7ef7afc04c8b680b9a7a75039,
+    type: 3}
+  muzzleParticle: {fileID: 1358292755013366, guid: 177817dfb8f1acc4f984b6817f56df3f,
+    type: 3}
   trailParticles: []
   colliderRadius: 1
   collideOffset: 0.15
@@ -82,18 +83,3 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.15
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4942742376255487865
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1587250918974726}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f91b05d37747f1c469d58d3a7dda29e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeLife: 2
-  rigid: {fileID: 54969070811294218}
-  hitEvent: {fileID: 11400000, guid: e8ced301472be5b46ad8760524c83704, type: 2}

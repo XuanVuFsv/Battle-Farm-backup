@@ -4886,7 +4886,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 2f3f789aad8546a488298feff43c3082, type: 2}
-  - {fileID: 2100000, guid: 2f3f789aad8546a488298feff43c3082, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4948,7 +4947,7 @@ GameObject:
   - component: {fileID: 8320071583981014923}
   - component: {fileID: 8203634376973501807}
   - component: {fileID: 8188163664398253319}
-  - component: {fileID: -6643183089390742037}
+  - component: {fileID: 126614124055313409}
   m_Layer: 0
   m_Name: BubbleSlimeExplosion
   m_TagString: Untagged
@@ -9914,7 +9913,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 6943738e13eb6d349bf31bbc0ecf83e6, type: 2}
-  - {fileID: 2100000, guid: 6943738e13eb6d349bf31bbc0ecf83e6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9965,7 +9963,7 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &-6643183089390742037
+--- !u!114 &126614124055313409
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -14809,7 +14807,6 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6943738e13eb6d349bf31bbc0ecf83e6, type: 2}
   - {fileID: 2100000, guid: 6943738e13eb6d349bf31bbc0ecf83e6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -19738,7 +19735,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 2f3f789aad8546a488298feff43c3082, type: 2}
-  - {fileID: 2100000, guid: 46c46885d5e9e194ba96e80d167e7a05, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -24621,7 +24617,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: d0f04f68279b2ae4eb74da61364f4c0c, type: 2}
-  - {fileID: 2100000, guid: 46c46885d5e9e194ba96e80d167e7a05, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
