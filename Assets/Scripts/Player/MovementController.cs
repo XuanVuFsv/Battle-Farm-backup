@@ -6,7 +6,7 @@ public class MovementController : MonoBehaviour
 {
     public LayerMask groundCheckLayers = -1;
 
-    public float runSpeed, walkSpeed, onAimOrFireSpeed, jumpForce, multiplierSpeed;
+    public float baseMovementSpeed, walkSpeed, onAimOrFireSpeed, jumpForce, multiplierSpeed;
     public float jumpDelay;
     public float groundCheckDistance = 0.05f;
     public float skinWidth = 0.02f;
@@ -78,7 +78,7 @@ public class MovementController : MonoBehaviour
         #endregion
     }
 
-    public void UpdateMultiplierSpeed(float value)
+    public void SetMultiplierSpeed(float value)
     {
         multiplierSpeed = value;
     }
@@ -90,14 +90,14 @@ public class MovementController : MonoBehaviour
 
         if (!shootController.inAim)
         {
-            runSpeed = walkSpeed;
+            SetMultiplierSpeed(walkSpeed/baseMovementSpeed); //argument as scale value
         }
         else
         {
-            runSpeed = onAimOrFireSpeed;
+            SetMultiplierSpeed(onAimOrFireSpeed/baseMovementSpeed); //argument as scale value
         }
 
-        rigidbody.MovePosition(rigidbody.position + movementDirection * runSpeed * multiplierSpeed * Time.deltaTime);
+        rigidbody.MovePosition(rigidbody.position + movementDirection * baseMovementSpeed * multiplierSpeed * Time.deltaTime);
     }
 
     void GroundCheck()

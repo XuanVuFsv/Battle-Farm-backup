@@ -51,14 +51,20 @@ public class GunCameraController : GameObserver
     public void SetHasScope(bool _hasScope)
     {
         hasScope = _hasScope;
+
         crosshairAnimator.SetBool("hasScope", hasScope);
+        crosshairAnimator.SetBool("inAim", false);
+
         vcamAnimator.SetBool("hasScope", hasScope);
+        vcamAnimator.SetBool("inAim", false);
+
         animator.SetBool("hasScope", hasScope);
+        animator.SetBool("inAim", false);
     }
 
     public override void Execute(IGameEvent gEvent, bool value)
     {
-        //Debug.Log(gEvent.GameEventName + " " + value);
+        //MyDebug.Instance.Log(gEvent.GameEventName + " " + value);
         animator.SetBool("inAim", value);
         vcamAnimator.SetBool("inAim", value);
         crosshairAnimator.SetBool("inAim", value);

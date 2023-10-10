@@ -106,20 +106,6 @@ public class ShootController : MonoBehaviour
         }
     }
 
-    //void MouseHandle()
-    //{
-    //    if (inputController.isAim)
-    //    {
-    //        //Aim handling
-    //        RightMouseBehaviourHandle();
-    //    }
-    //    else
-    //    {
-    //        //Fire handling
-    //        LeftMouseBehaviourHandle();
-    //    }
-    //}
-
     void RightMouseBehaviourHandle()
     {
         if (inputController.isAim)
@@ -179,7 +165,6 @@ public class ShootController : MonoBehaviour
             if (inputController.isStopFire)
             {
                 isFire = false;
-                //rigController.SetBool("inAttack", inputController.isFire);
                 raycastWeapon.StopFiring();
                 DeactivateShooting();
             }
@@ -228,7 +213,6 @@ public class ShootController : MonoBehaviour
         {
             inAim = false; 
             aimEvent.Notify(inAim);
-            //aimEvent.Notify(1f);
         }
 
         yield return currentWeaponStatsController.currentAmmoStatsController.reloadTimer;
@@ -260,17 +244,6 @@ public class ShootController : MonoBehaviour
         else rigController.SetBool("inAttack", true);
     }
 
-    //public void PlayAimAnimation()
-    //{
-    //    if (!rigController) return;
-    //    inAim = !inAim;
-    //    aimEvent.Notify(inAim);
-
-    //    if (inAim) aimEvent.Notify(currentWeaponStatsController.currentAmmoStatsController.multiplierRecoilOnAim);
-
-    //    rigController.SetBool("inAim", inAim);
-    //}
-
     public void ApplyAimingAttributes()
     {
 
@@ -297,6 +270,7 @@ public class ShootController : MonoBehaviour
                 break;
             case "refill_magazine":
                 MyDebug.Instance.Log("Refill event");
+                //Avoid delay and unexpected behaviour. RefillMagazine will execute in UpdateEndedReloadStats()
                 break;
             case "attach_magazine":
                 MyDebug.Instance.Log("Attach event");

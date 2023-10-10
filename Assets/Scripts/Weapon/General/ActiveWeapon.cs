@@ -23,6 +23,8 @@ public class ActiveWeapon : MonoBehaviour
         View = 3
     }
 
+    public MovementController movementController;
+
     public static WeaponPickup[] equippedWeapon = new WeaponPickup[4];
 
     public UnityEngine.Animations.Rigging.Rig handIk;
@@ -81,6 +83,7 @@ public class ActiveWeapon : MonoBehaviour
     {
         shootController = GetComponent<ShootController>();
         inputController = GetComponent<InputController>();
+        movementController = GetComponent<MovementController>();
 
         EquipWeapon(WeaponAction.Pickup, defaultWeapon0, true);
         SetupNewWeapon(defaultWeapon0.weaponStats);
@@ -260,6 +263,7 @@ public class ActiveWeapon : MonoBehaviour
 
         rigController.SetInteger("weaponIndex", activeWeaponIndex);
         gunCameraController.SetHasScope(activateWeapon.GetComponent<AmmoStatsController>().ammoStats.zoomType == AmmoStats.ZoomType.HasScope);
+        GetComponent<MovementController>().SetMultiplierSpeed(1);
     }
 
     public void EquipWeapon(WeaponAction action, WeaponPickup newWeapon, bool runAnimation, bool isExistWeaponSlot = false)
