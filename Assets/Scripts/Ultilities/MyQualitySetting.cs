@@ -23,5 +23,19 @@ public class MyQualitySetting : Singleton<MyQualitySetting>
             else QualitySettings.vSyncCount++;
             vSyncText.text = QualitySettings.vSyncCount.ToString();
         }
+
+        //if (Input.GetKeyDown(KeyCode.F)) Application.targetFrameRate = fps;
+
+        //if (Input.GetKeyDown(KeyCode.L))
+        //{
+        //    Cursor.visible = false;
+        //    Cursor.lockState = CursorLockMode.Locked;
+        //}
+
+        //if (Input.GetKeyDown(KeyCode.U))
+        //{
+        //    Cursor.visible = true;
+        //    Cursor.lockState = CursorLockMode.None;
+        //}
     }
 }

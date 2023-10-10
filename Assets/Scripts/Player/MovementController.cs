@@ -188,11 +188,8 @@ public class MovementController : MonoBehaviour
 
     void Jump(float jumpProcessValue)
     {
-        //readyToJump = false;
         mainCharacterAnimator.SetJumpAnimationParameter(isGrounded, true, jumpProcessValue, 0.5f);
-        //StartCoroutine(DelayJump());
         readyToJump = true;
-        //yield return new WaitForSeconds((18 / 31) * (16 / 3)); //play a part of animation before jump t = 8/15 * 0.533 8/15 frame length = 0.533s
         rigidbody.AddForce(transform.up * jumpForce);
     }
 

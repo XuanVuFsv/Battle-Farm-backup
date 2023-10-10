@@ -101,13 +101,6 @@ public class RaycastWeapon : MonoBehaviour
     {
         if (muzzleFlash) muzzleFlash.Emit(1);
 
-        //cameraShake.GenerateRecoil(ammoStatsController.ammoStats.zoomType);
-        //if (ammoStatsController.ammoStats.zoomType == AmmoStats.ZoomType.HasScope) cameraShake.GenerateRecoil(true);
-        //else
-        //{
-        //    cameraShake.GenerateRecoil();
-        //}
-
         #region Spawn bullet object and tracer
         //Spawn casing prefab at spawnpoint
         //Instantiate(weaponStats.casingPrefab,

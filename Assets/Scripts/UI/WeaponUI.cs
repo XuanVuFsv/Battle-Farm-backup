@@ -11,6 +11,7 @@ public class WeaponUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Make weapon UI on the ground can be seen by the player in every direction
         transform.LookAt(Camera.main.transform.position);
     }
 }

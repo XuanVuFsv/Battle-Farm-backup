@@ -41,16 +41,6 @@ public class MainPlayerAnimator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //if (isUseVSync)
-        //{
-        //    QualitySettings.vSyncCount = 1;
-        //    Application.targetFrameRate = targetFrameRate;
-        //}
-        //else
-        //{
-        //    QualitySettings.vSyncCount = 0;
-        //}
-
         activeweapon = GetComponent<ActiveWeapon>();
         movementController = GetComponent<MovementController>();
         inputController = GetComponent<InputController>();

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Curently not being used
 public class PlayerAim : MonoBehaviour
 {
     [SerializeField]
@@ -20,11 +21,4 @@ public class PlayerAim : MonoBehaviour
     {
 
     }
-
-    //public void PlayAimAnimation(CameraShake cameraShake, string weaponName)
-    //{
-    //    inAim = !inAim;
-    //    reloadEvent.Notify();
-    //    cameraShake.PlayAimAnimation(weaponName, inAim);
-    //}
 }

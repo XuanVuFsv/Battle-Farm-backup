@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Currently not being used
 public class SkinnedCollisionHelper : MonoBehaviour
 {
     // Public variables

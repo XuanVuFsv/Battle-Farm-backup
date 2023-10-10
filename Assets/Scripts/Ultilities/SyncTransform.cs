@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Currently not being used
 public class SyncTransform : MonoBehaviour
 {
     public Transform horizontalTransform;
