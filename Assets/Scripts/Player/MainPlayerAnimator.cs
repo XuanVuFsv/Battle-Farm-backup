@@ -100,7 +100,7 @@ public class MainPlayerAnimator : MonoBehaviour
                     exitFireSession = false;
                     exitFireAnimation = false;
 
-                    StartCoroutine(ApllyFireRateAnimation());
+                    StartCoroutine(ApplyFireRateAnimation());
                     StartCoroutine(EndSingleFireAnimation());
                 }
                 else if (Input.GetMouseButton(0) && inputController.fireValue == 2)
@@ -127,9 +127,10 @@ public class MainPlayerAnimator : MonoBehaviour
         #endregion
     }
 
-    public IEnumerator ApllyFireRateAnimation()
+    public IEnumerator ApplyFireRateAnimation()
     {
-        yield return new WaitForSeconds(1/ shootController.currentWeaponStatsController.currentAmmoStatsController.fireRate);
+        WaitForSeconds waitForSeconds = new WaitForSeconds(1 / shootController.currentWeaponStatsController.currentAmmoStatsController.fireRate);
+        yield return waitForSeconds;
         exitFireSession = true;
     }
     

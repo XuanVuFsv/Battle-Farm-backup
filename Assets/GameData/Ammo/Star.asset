@@ -42,7 +42,7 @@ MonoBehaviour:
   bulletTracer: {fileID: 0}
   bulletObject: {fileID: 2966576973696581955, guid: 7cced171216e01a48a0042b27bfc9ec9, type: 3}
   hitEffectPrefab: {fileID: 0}
-  shootingHandleType: 1
+  shootingHandleType: 0
   bulletCount: 1
   bulletDirectionPattern:
   - {x: 0, y: 0, z: 0}
