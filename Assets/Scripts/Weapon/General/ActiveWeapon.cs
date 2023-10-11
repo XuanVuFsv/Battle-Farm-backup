@@ -247,7 +247,7 @@ public class ActiveWeapon : MonoBehaviour
 
         if (shootController.isReloading)
         {
-            MyDebug.Instance.Log("Switch");
+            Debug.Log("Switch");
             shootController.AttachMagazine();
             shootController.StopAllCoroutines();
             shootController.StopCoroutine("Reload");

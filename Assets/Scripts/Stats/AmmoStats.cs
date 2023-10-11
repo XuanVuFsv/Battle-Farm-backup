@@ -15,10 +15,8 @@ public class AmmoStats : ScriptableObject
         Tomato = 6,
         Waternelon = 7
     }
-
     public FruitType fruitType;
 
-    public ActiveWeapon.WeaponSlot weaponSlot;
     public enum ZoomType
     {
         NoZoom = 0,
@@ -26,6 +24,16 @@ public class AmmoStats : ScriptableObject
         HasScope = 2
     }
     public ZoomType zoomType;
+    
+    public enum BulletEffectComponent
+    {
+        PlaceHole = 0,
+        InstantiateTrail = 1,
+        Both = 2
+    }
+    public BulletEffectComponent bulletEffectComponent;
+
+    public ActiveWeapon.WeaponSlot weaponSlot;
     public new string name;
     public int ammoAllowedInMagazine;
     public int damageHead, damageBody, damageArmsLegs;
@@ -44,7 +52,6 @@ public class AmmoStats : ScriptableObject
     public TrailRenderer bulletTracer;
     public GameObject bulletObject;
     public ParticleSystem hitEffectPrefab;
-    //public ShootingMechanic shootingMechanic;
 
     public enum ShootingHandleType
     {

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovementController : MonoBehaviour
+public class MovementController : GameObserver
 {
     public LayerMask groundCheckLayers = -1;
 
@@ -23,6 +23,7 @@ public class MovementController : MonoBehaviour
 
     [SerializeField]
     private Animator rigController;
+    [SerializeField] GameEvent aimEvent;
     private MainPlayerAnimator mainCharacterAnimator;
     private ShootController shootController;
     private InputController inputController;
@@ -80,6 +81,7 @@ public class MovementController : MonoBehaviour
 
     public void SetMultiplierSpeed(float value)
     {
+        MyDebug.Instance.Log("Set Multiplier Speed");
         multiplierSpeed = value;
     }
 
@@ -87,15 +89,6 @@ public class MovementController : MonoBehaviour
     {
         movementDirection = (transform.forward * inputController.rawVertical + transform.right * inputController.rawHorizontal).normalized;
         PlayMovingCameraEffect(!inputController.isIdle);
-
-        if (!shootController.inAim)
-        {
-            SetMultiplierSpeed(walkSpeed/baseMovementSpeed); //argument as scale value
-        }
-        else
-        {
-            SetMultiplierSpeed(onAimOrFireSpeed/baseMovementSpeed); //argument as scale value
-        }
 
         rigidbody.MovePosition(rigidbody.position + movementDirection * baseMovementSpeed * multiplierSpeed * Time.deltaTime);
     }
@@ -196,5 +189,31 @@ public class MovementController : MonoBehaviour
     void PlayMovingCameraEffect(bool isMove)
     {
         rigController.SetBool("inMove", isMove);
-    }   
+    }
+
+    public override void Execute(IGameEvent gEvent, bool val)
+    {
+        //MyDebug.Instance.Log($"Execute by {this} in base class with value: {val}");
+
+        if (val)
+        {
+            //inAim = true
+            SetMultiplierSpeed(onAimOrFireSpeed / baseMovementSpeed); //argument as scale value
+        }
+        else
+        {
+            //inAim = false
+            SetMultiplierSpeed(walkSpeed / baseMovementSpeed); //argument as scale value
+        }
+    }
+
+    private void OnEnable()
+    {
+        aimEvent.Subscribe(this);
+    }
+
+    private void OnDisable()
+    {
+        aimEvent.UnSubscribe(this);
+    }
 }

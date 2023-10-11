@@ -5,7 +5,15 @@ using System;
 
 public class PoolSetup : GameObserver, IPoolSetup
 {
+    public enum PoolSetupMode
+    {
+        MultipleSameObject = 0,
+        MultipleDifferentObject = 1
+    }
+    public PoolSetupMode mode;
+
     public GameObject prefab;
+    public List<GameObject> multipleDifferentObjectList = new List<GameObject>();
     public string poolManagerName;
     [SerializeField] GameEvent gameEvent;
 

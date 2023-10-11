@@ -8,7 +8,8 @@ public class PoolingManager : MonoBehaviour
 
     public Dictionary<string, IPoolSetup> pooledList = new Dictionary<string, IPoolSetup>();
 
-    public string currentPool;
+    [SerializeField]
+    private string currentPool;
 
     void MakeInstance()
     {

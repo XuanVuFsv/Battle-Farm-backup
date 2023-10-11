@@ -4947,7 +4947,7 @@ GameObject:
   - component: {fileID: 8320071583981014923}
   - component: {fileID: 8203634376973501807}
   - component: {fileID: 8188163664398253319}
-  - component: {fileID: 126614124055313409}
+  - component: {fileID: 1378007940835858044}
   m_Layer: 0
   m_Name: BubbleSlimeExplosion
   m_TagString: Untagged
@@ -9963,7 +9963,7 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &126614124055313409
+--- !u!114 &1378007940835858044
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

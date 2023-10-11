@@ -9775,7 +9775,7 @@ GameObject:
   - component: {fileID: 2870711788768428303}
   - component: {fileID: 2673747486093382679}
   - component: {fileID: 2673704033496899755}
-  - component: {fileID: -848823786663793557}
+  - component: {fileID: 2759597879302503511}
   m_Layer: 0
   m_Name: SlimeExplosion
   m_TagString: Untagged
@@ -14650,7 +14650,7 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &-848823786663793557
+--- !u!114 &2759597879302503511
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
