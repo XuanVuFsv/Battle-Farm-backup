@@ -82,6 +82,18 @@ public class Pool<T> : IPool<T> where T : IPool
         }
     }
 
+    //public Pool(List<IFactory<T>> factory, int _poolSize)
+    //{
+    //    poolSize = _poolSize;
+    //    maxSize = poolSize + 5;
+    //    this.factory = factory;
+
+    //    for (int i = 0; i < poolSize; i++)
+    //    {
+    //        Create();
+    //    }
+    //}
+
     public T Create()
     {
         T member = factory.Create();

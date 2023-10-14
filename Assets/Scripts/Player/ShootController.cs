@@ -142,7 +142,7 @@ public class ShootController : MonoBehaviour
                     lastFired = Time.time;
 
                     //Remove 1 bullet from ammo
-                    currentWeaponStatsController.UpdateAmmo(-currentWeaponStatsController.currentAmmoStatsController.bulletCount);
+                    currentWeaponStatsController.UseAmmo(-currentWeaponStatsController.currentAmmoStatsController.bulletCount);
                     shootingTime++;
                     //currentWeaponStatsController.UpdateAmmoUI();
 

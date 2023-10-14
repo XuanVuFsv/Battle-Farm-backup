@@ -30,10 +30,8 @@ public class AmmoStatsController : MonoBehaviour
     public RaycastWeapon raycastWeapon;
     public WeaponStatsController weaponStatsController;
     public ParticleSystem hitEffectPrefab;
-    public TrailRenderer bulletTracer;
+    public GameObject trailTracer;
     public GameObject bulletObject;
-
-    public Sprite artwork;
 
     public WaitForSeconds reloadTimer;
 
@@ -88,13 +86,8 @@ public class AmmoStatsController : MonoBehaviour
         reloadTimer = new WaitForSeconds(reloadSpeed);
 
         hitEffectPrefab = ammoStats.hitEffectPrefab;
-        bulletTracer = ammoStats.bulletTracer;
-        //Debug.Log(ammoStats.bulletObject);
+        trailTracer = ammoStats.trailTracer;
         bulletObject = ammoStats.bulletObject;
-
-        artwork = ammoStats.artwork;
-
-        //hasAssignAmmoData = true;
 
         cameraShake.AssignRecoilPattern(ammoStats.recoildPattern);
 

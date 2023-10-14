@@ -7,6 +7,7 @@ public class AmmoStats : ScriptableObject
 {
     public enum FruitType
     {
+        Null = -1,
         Berry = 0,
         Chilli = 1,
         Onion = 2,
@@ -24,9 +25,10 @@ public class AmmoStats : ScriptableObject
         HasScope = 2
     }
     public ZoomType zoomType;
-    
+
     public enum BulletEffectComponent
     {
+        None = -1,
         PlaceHole = 0,
         InstantiateTrail = 1,
         Both = 2
@@ -35,6 +37,7 @@ public class AmmoStats : ScriptableObject
 
     public ActiveWeapon.WeaponSlot weaponSlot;
     public new string name;
+    public int maxCount;
     public int ammoAllowedInMagazine;
     public int damageHead, damageBody, damageArmsLegs;
     public int dropOffDsitance;
@@ -49,17 +52,24 @@ public class AmmoStats : ScriptableObject
     public float multiplierForAmmo;
     public List<Vector2> recoildPattern;
     public Sprite artwork;
-    public TrailRenderer bulletTracer;
+    public GameObject trailTracer;
     public GameObject bulletObject;
     public ParticleSystem hitEffectPrefab;
 
     public enum ShootingHandleType
     {
+        None = -1,
         Raycast = 0,
         InstantiateBullet = 1
     }
 
     public ShootingHandleType shootingHandleType;
+    [Tooltip("number of bullet or raycast will be instantiated when player shoot. Example 1 for rifle type (berry), sniper type(star) and 5 for shotgun type(tomato)")]
     public int bulletCount = 1;
     public List<Vector3> bulletDirectionPattern;
+
+    public GameObject GetTrailTracer()
+    {
+        return trailTracer;
+    }
 }

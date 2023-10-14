@@ -3,22 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+//public class ObjectInPoolInitCount
+//{
+//    public GameObject prefab;
+//    public int count;
+//}
+
 public class PoolSetup : GameObserver, IPoolSetup
 {
-    public enum PoolSetupMode
-    {
-        MultipleSameObject = 0,
-        MultipleDifferentObject = 1
-    }
-    public PoolSetupMode mode;
-
+    [Tooltip("Check this to mark pool has multiple object. Otherwise pool has muliple object")]
+    public bool isSameObject;
+    [Tooltip("This prefab will be used if isSameObject true")]
     public GameObject prefab;
-    public List<GameObject> multipleDifferentObjectList = new List<GameObject>();
+    //[Tooltip("This list will be used if isSameObject false")]
+    //public List<ObjectInPoolInitCount> multipleDifferentObjectList = new List<ObjectInPoolInitCount>();
+
     public string poolManagerName;
     [SerializeField] GameEvent gameEvent;
 
-    public Pool<ObjectInPool> bulletHolePool;
+    public Pool<ObjectInPool> pool;
     public ObjectInPool currentObject;
+    [Tooltip("When using multipleDifferentObjectList, init pool size is predetermined which is number of all object instantiated base on ObjectInPoolInitCount at init. Max pool size is flexible")]
     [SerializeField] int initPoolSize, maxPoolSize;
 
    public IPool InitPool(string poolManagerName, int initPoolSize, int maxPoolSize, GameObject prefab, GameEvent gameEvent)
@@ -28,30 +33,47 @@ public class PoolSetup : GameObserver, IPoolSetup
         this.gameEvent = gameEvent;
         this.initPoolSize = initPoolSize;
         this.maxPoolSize = maxPoolSize;
-        bulletHolePool = new Pool<ObjectInPool>(new PrefabFactory<ObjectInPool>(prefab, transform), initPoolSize);
-        return bulletHolePool;
+        pool = new Pool<ObjectInPool>(new PrefabFactory<ObjectInPool>(prefab, transform), initPoolSize);
+        return pool;
     }
+
+    //public IPool InitPool(string poolManagerName, int maxPoolSize, List<ObjectInPoolInitCount> list, GameEvent gameEvent)
+    //{
+    //    this.multipleDifferentObjectList = list;
+    //    this.poolManagerName = poolManagerName;
+    //    this.gameEvent = gameEvent;
+
+    //    int count = 0;
+    //    foreach (ObjectInPoolInitCount infor in list)
+    //    {
+    //        count += infor.count;
+    //    }
+    //    this.initPoolSize = count;
+    //    this.maxPoolSize = maxPoolSize;
+    //    pool = new Pool<ObjectInPool>(new PrefabFactory<ObjectInPool>(prefab, transform), initPoolSize);
+    //    return pool;
+    //}
 
     public IPool InitPool()
     {
-        bulletHolePool = new Pool<ObjectInPool>(new PrefabFactory<ObjectInPool>(prefab, transform), initPoolSize);
-        return bulletHolePool;
+        pool = new Pool<ObjectInPool>(new PrefabFactory<ObjectInPool>(prefab, transform), initPoolSize);
+        return pool;
     }
 
     public int GetMaxPoolSize() { return maxPoolSize; }
 
-    public int GetPoolSize() { return bulletHolePool.poolSize; }
+    public int GetPoolSize() { return pool.poolSize; }
 
     public string GetName() { return poolManagerName; }
 
     public void Get()
     {
-        currentObject = bulletHolePool.Get();
+        currentObject = pool.Get();
     }
 
     public void Release()
     {
-        bulletHolePool.Release();
+        pool.Release();
     }
 
     public void Reset()
@@ -66,7 +88,7 @@ public class PoolSetup : GameObserver, IPoolSetup
             poolObject.GetComponent<ObjectInPool>().Dispose();
             //poolObject.GetComponent<BulletHoleBehaviour>().Dispose();
         }
-        bulletHolePool.Dispose();
+        pool.Dispose();
     }
 
     public override void Execute(IGameEvent gEvent, RaycastHit hit)

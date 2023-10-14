@@ -9,6 +9,7 @@ public class ActiveWeapon : MonoBehaviour
 
     public enum WeaponSlot
     {
+        None = -1,
         Primary = 0,
         Sidearm = 1,
         Melee = 2,
@@ -234,6 +235,7 @@ public class ActiveWeapon : MonoBehaviour
         equippedWeapon[weaponIndex].GetComponent<WeaponStatsController>().SetupAmmoStats(pickedAmmo);
         triggerAmmoList.RemoveAt(nearestAmmoIndex);
         gunCameraController.SetHasScope(pickedAmmo.ammoStats.zoomType == AmmoStats.ZoomType.HasScope);
+        InventoryController.Instance.AddNewAmmoToInventory(pickedAmmo.ammoStats, pickedAmmo.ammoContain);
     }
 
     void SwitchWeapon(WeaponPickup activateWeapon)
@@ -393,7 +395,7 @@ public class ActiveWeapon : MonoBehaviour
         equippedWeaponParent[attachedWeaponSlotIndex] = attachedWeapon.transform.parent;
 
         StartCoroutine(SetWeaponParent(attachedWeapon, attachedWeaponParent));
-        //MyDebug.Instance.Log("OnStart " + attachedWeapon.transform.parent.name);
+        Debug.Log("OnStart " + attachedWeapon.transform.parent.name);
         attachedWeapon.GetComponent<WeaponStatsController>().OnStart();
     }
 
